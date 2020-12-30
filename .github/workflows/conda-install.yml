@@ -1,4 +1,4 @@
-name: Install dependencies in conda environment
+name: Test in conda env
 
 on: [push, pull_request]
 
@@ -13,31 +13,42 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install Miniconda
-        shell: bash
-        run: |
-          MINICONDA_FILENAME=Miniconda3-latest-Linux-x86_64.sh
-          curl -o $MINICONDA_FILENAME "https://repo.continuum.io/miniconda/$MINICONDA_FILENAME"
-          bash ${MINICONDA_FILENAME} -b -f -p $HOME/miniconda3
-          source /usr/share/miniconda/etc/profile.d/conda.sh
+      # Remove envs directory if exists to prevent cache restore errors. Github runner already has bundled conda.
+      - name: Remove envs directory
+        run: rm -rf /usr/share/miniconda/envs
 
       # Check for environment.yml changes
       - name: Cache conda dependencies
-        id: conda-dependencies
+        id: conda
         uses: actions/cache@v2
         env:
           # Increase this value to manually reset cache if needed
           CONDA_CACHE_NUMBER: 0
         with:
           path: |
-            /home/runner/conda_pkgs_dir
+            ~/conda_pkgs_dir
             /usr/share/miniconda/envs
           key: ${{ runner.os }}-conda-${{ env.CONDA_CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
 
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: "birdfeeder"
+          auto-activate-base: false
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+
       - name: Run install script
         # Only need to run install when deps has been changed
-        if: steps.program-changes.outputs.cache-hit != 'true'
+        if: steps.conda.outputs.cache-hit != 'true'
         shell: bash -l {0}
         run: |
-          source /usr/share/miniconda/etc/profile.d/conda.sh
           ./install
+
+      - name: Show conda info
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
+
+      - name: Run pytest
+        shell: bash -l {0}
+        run: pytest
