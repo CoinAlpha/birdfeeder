@@ -10,11 +10,12 @@ to = {format = "setuppy", path = "setup.py"}
 # TODO: switch to "semver" when interfaces are stable and everyone understands the versioning scheme
 versioning = "zerover"
 
+# TODO: buggy, https://github.com/dephell/dephell/issues/484
 # Make lockfile
 # $ dephell deps convert --env=lock
-[tool.dephell.lock]
-from = {format = "poetry", path = "pyproject.toml"}
-to = {format = "poetrylock", path = "poetry.lock"}
+#[tool.dephell.lock]
+#from = {format = "poetry", path = "pyproject.toml"}
+#to = {format = "poetrylock", path = "poetry.lock"}
 
 # TODO: buggy, use poetry2conda for now, see README
 #[tool.dephell.conda]

@@ -32,7 +32,6 @@ If using poetry:
 1. Change version in `pyproject.toml`
 1. Generate `setup.py`
 1. Generate `environment.yml`
-1. Generate `poetry.lock`
 
 
 Generate `setup.py`:
@@ -45,10 +44,4 @@ Generate conda `environment.yml`:
 
 ```
 poetry2conda --dev pyproject.toml environment.yml
-```
-
-Generate `poetry.lock`:
-
-```
-dephell deps convert --env=lock
 ```
