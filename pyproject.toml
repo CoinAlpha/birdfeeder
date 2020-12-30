@@ -1,0 +1,88 @@
+# Default section.
+# Convert dephell metainfo and dependencies from poetry to setup.py:
+# $ dephell deps convert
+[tool.dephell.main]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "setuppy", path = "setup.py"}
+
+# https://dephell.readthedocs.io/cmd-project-bump.html?highlight=versioning#versioning-schemes
+# zerover: means can broke anything in any release, versioning is 0.x.y
+# TODO: switch to "semver" when interfaces are stable and everyone understands the versioning scheme
+versioning = "zerover"
+
+# Make lockfile
+# $ dephell deps convert --env=lock
+[tool.dephell.lock]
+from = {format = "poetry", path = "pyproject.toml"}
+to = {format = "poetrylock", path = "poetry.lock"}
+
+# TODO: buggy, use poetry2conda for now, see README
+#[tool.dephell.conda]
+#from = {format = "poetry", path = "pyproject.toml"}
+#to = {format = "conda", path = "environment.yml"}
+
+
+[tool.poetry]
+name = "birdfeeder"
+version = "0.1.0"
+description = "Helper library for CoinAlpha projects"
+license = "MIT"
+authors = ["Vladimir Kamarzin <vvk@vvk.pp.ru>"]
+readme = "README.md"
+repository = "https://github.com/coinalpha/birdfeeder"
+
+keywords = []
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+
+[tool.poetry.dev-dependencies]
+# See https://python-poetry.org/docs/dependency-specification/
+poetry2conda = "^0.3"
+pre-commit = "^2.2.0"
+pytest = "^5.4"
+pytest-cov = "^2.7"
+pytest-mock = "^3.1.0"
+
+[tool.poetry2conda]
+name = "birdfeeder"
+
+[tool.poetry2conda.dependencies]
+poetry2conda = { channel = "pip" }
+pre-commit = { channel = "pip" }
+
+[tool.black]
+line-length = 120
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \venv
+  | build
+  | dist
+)/
+'''
+
+[tool.pytest.ini_options]
+# Directories that are not visited by pytest collector:
+norecursedirs = "*.egg .eggs dist build docs .tox .git __pycache__"
+
+# Extra options:
+addopts = [
+  "--strict",
+  "--doctest-modules",
+  "--cov=birdfeeder",
+  "--cov-report=term:skip-covered",
+  "--cov-report=html",
+  "--cov-branch",
+  "--cov-append",
+  ]

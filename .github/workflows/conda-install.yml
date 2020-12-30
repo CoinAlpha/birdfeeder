@@ -1,0 +1,43 @@
+name: Install dependencies in conda environment
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install Miniconda
+        shell: bash
+        run: |
+          MINICONDA_FILENAME=Miniconda3-latest-Linux-x86_64.sh
+          curl -o $MINICONDA_FILENAME "https://repo.continuum.io/miniconda/$MINICONDA_FILENAME"
+          bash ${MINICONDA_FILENAME} -b -f -p $HOME/miniconda3
+          source /usr/share/miniconda/etc/profile.d/conda.sh
+
+      # Check for environment.yml changes
+      - name: Cache conda dependencies
+        id: conda-dependencies
+        uses: actions/cache@v2
+        env:
+          # Increase this value to manually reset cache if needed
+          CONDA_CACHE_NUMBER: 0
+        with:
+          path: |
+            /home/runner/conda_pkgs_dir
+            /usr/share/miniconda/envs
+          key: ${{ runner.os }}-conda-${{ env.CONDA_CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+
+      - name: Run install script
+        # Only need to run install when deps has been changed
+        if: steps.program-changes.outputs.cache-hit != 'true'
+        shell: bash -l {0}
+        run: |
+          source /usr/share/miniconda/etc/profile.d/conda.sh
+          ./install
