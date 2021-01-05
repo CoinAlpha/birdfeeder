@@ -1,4 +1,22 @@
+import io
+import logging.config
+from os.path import join, realpath
 from typing import Any, Dict
+
+from ruamel.yaml import YAML
+
+
+def read_logging_config(conf_filename: str, **kwargs: Any) -> Dict[str, Any]:
+    file_path: str = realpath(join(__file__, "../../conf/%s" % (conf_filename,)))
+    yaml_parser: YAML = YAML()
+    with open(file_path) as fd:
+        yml_source: str = fd.read()
+        yml_source = yml_source.replace("$PROJECT_DIR", realpath(join(__file__, "../../")))
+        for key, value in kwargs.items():
+            yml_source = yml_source.replace(f"${key.upper()}", value)
+        io_stream: io.StringIO = io.StringIO(yml_source)
+        config: Dict = yaml_parser.load(io_stream)
+    return config
 
 
 def init_logging(
@@ -14,24 +32,6 @@ def init_logging(
         logging config
     :return:
     """
-
-    def read_logging_config(conf_filename: str, **kwargs: Any) -> Dict[str, Any]:
-        file_path: str = realpath(join(__file__, "../../conf/%s" % (conf_filename,)))
-        yaml_parser: YAML = YAML()
-        with open(file_path) as fd:
-            yml_source: str = fd.read()
-            yml_source = yml_source.replace("$PROJECT_DIR", realpath(join(__file__, "../../")))
-            for key, value in kwargs.items():
-                yml_source = yml_source.replace(f"${key.upper()}", value)
-            io_stream: io.StringIO = io.StringIO(yml_source)
-            config: Dict = yaml_parser.load(io_stream)
-        return config
-
-    import io
-    import logging.config
-    from os.path import join, realpath
-
-    from ruamel.yaml import YAML
 
     logging_config = {}
     kwargs["stdout_formatter"] = stdout_formatter
