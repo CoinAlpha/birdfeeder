@@ -42,7 +42,7 @@ setup(
         "dev": [
             "poetry2conda==0.*,>=0.3.0",
             "pre-commit==2.*,>=2.2.0",
-            "pytest==5.*,>=5.4.0",
+            "pytest==6.*,>=6.0.0",
             "pytest-cov==2.*,>=2.7.0",
             "pytest-mock==3.*,>=3.1.0",
         ]

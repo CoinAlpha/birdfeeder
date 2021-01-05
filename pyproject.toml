@@ -49,7 +49,7 @@ python = "^3.6.1"
 # See https://python-poetry.org/docs/dependency-specification/
 poetry2conda = "^0.3"
 pre-commit = "^2.2.0"
-pytest = "^5.4"
+pytest = "^6"
 pytest-cov = "^2.7"
 pytest-mock = "^3.1.0"
 
@@ -81,7 +81,7 @@ norecursedirs = "*.egg .eggs dist build docs .tox .git __pycache__"
 
 # Extra options:
 addopts = [
-  "--strict",
+  "--strict-markers",
   "--doctest-modules",
   "--cov=birdfeeder",
   "--cov-report=term:skip-covered",
