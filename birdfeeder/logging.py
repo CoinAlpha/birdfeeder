@@ -1,9 +1,48 @@
 import io
+import logging
 import logging.config
+from enum import Enum
 from os.path import join, realpath
-from typing import Any, Dict
+from typing import Any, Dict, List, Type, TypeVar
 
+from pythonjsonlogger.jsonlogger import JsonFormatter
 from ruamel.yaml import YAML
+
+T = TypeVar("T", bound="Formatter")
+
+
+class Formatter(Enum):
+    """Define logging formatter in a simple way."""
+
+    VERBOSE = "%(asctime)s - %(name)s(%(funcName)s:%(lineno)d) - %(levelname)s: %(message)s"
+    JSON = "%(asctime)s %(name)s %(pathname)s %(funcName)s %(lineno)d %(levelname)s %(message)s"
+
+    @classmethod
+    def all(cls: Type[T]) -> List[str]:
+        """Returns list with all defined formatter names."""
+        # Looks like mypy can't correctly handle that for now
+        return list(map(lambda i: i.name, cls))  # type: ignore
+
+
+def configure_logging_formatter(formatter: Formatter = Formatter.JSON) -> None:
+    """
+    Configure formatter for all existing loggers.
+
+    Note: it sets StreamHandler only
+    """
+    if formatter is Formatter.JSON:
+        formatter_instance = JsonFormatter(formatter.value)
+    else:
+        formatter_instance = logging.Formatter(formatter.value)
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter_instance)
+
+    # We're setting a proper formatter on all existing loggers including these which created at import time
+    for name in logging.getLogger().manager.loggerDict:  # type: ignore
+        logger = logging.getLogger(name)
+        logger.addHandler(handler)
+        # Prevent twice messages from child loggers like "aiohttp.access"
+        logger.propagate = False
 
 
 def read_logging_config(conf_filename: str, **kwargs: Any) -> Dict[str, Any]:
