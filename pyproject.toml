@@ -43,6 +43,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
+"ruamel.yaml" = "^0.16"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/

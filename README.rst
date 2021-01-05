@@ -40,7 +40,6 @@ Releasing a new version
 #. Change version in ``pyproject.toml``
 #. Generate ``setup.py``
 #. Generate ``environment.yml``
-#. Generate ``poetry.lock``
 
 Generate ``setup.py``\ :
 
@@ -53,9 +52,3 @@ Generate conda ``environment.yml``\ :
 .. code-block::
 
    poetry2conda --dev pyproject.toml environment.yml
-
-Generate ``poetry.lock``\ :
-
-.. code-block::
-
-   dephell deps convert --env=lock
