@@ -11,6 +11,7 @@ name: birdfeeder
 dependencies:
   - python>=3.6.1,<4.0.0
   - ruamel.yaml>=0.16,<0.17
+  - python-json-logger>=2,<3
   - pytest>=6,<7
   - pytest-cov>=2.7,<3.0
   - pytest-mock>=3.1.0,<4.0.0

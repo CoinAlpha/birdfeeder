@@ -37,7 +37,7 @@ setup(
     packages=['birdfeeder'],
     package_dir={"": "."},
     package_data={},
-    install_requires=['ruamel.yaml==0.*,>=0.16.0'],
+    install_requires=['python-json-logger==2.*,>=2.0.0', 'ruamel.yaml==0.*,>=0.16.0'],
     extras_require={
         "dev": [
             "poetry2conda==0.*,>=0.3.0",
