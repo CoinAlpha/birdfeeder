@@ -2,6 +2,7 @@ import asyncio
 import inspect
 import logging
 import time
+from typing import Any, List, Tuple
 
 from environs import Env
 
@@ -10,7 +11,7 @@ env.read_env()  # read .env file, if it exists
 SHOULD_INSPECT = env.bool("ASYNCIO_INSPECT_CALLERS", False)
 
 
-def get_callers(stack_size=5):
+def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:
     stack = inspect.stack()
     modules = [(index, inspect.getmodule(stack[index][0])) for index in reversed(range(1, min(stack_size, len(stack))))]
     callers = []
@@ -39,7 +40,6 @@ def safe_ensure_future(coro, *args, **kwargs):
         except asyncio.CancelledError:
             raise
         except Exception as e:
-
             logging.getLogger().error(
                 f"Unhandled error in background task: {str(e)} {caller_names}",
                 exc_info=True,
@@ -51,6 +51,10 @@ def safe_ensure_future(coro, *args, **kwargs):
 async def safe_gather(*args, **kwargs):
     """
     Gather an awaitables logging unexpected exceptions.
+
+    .. note::
+
+        Exception is logged and re-raised!
 
     :envvar: ASYNCIO_INSPECT_CALLERS: if true, show callers on failure
     """

@@ -54,6 +54,7 @@ pre-commit = "^2.2.0"
 pytest = "^6"
 pytest-cov = "^2.7"
 pytest-mock = "^3.1.0"
+pytest-asyncio = "*"
 
 [tool.poetry2conda]
 name = "birdfeeder"
