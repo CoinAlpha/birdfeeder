@@ -1,0 +1,23 @@
+---
+version: 1
+
+formatters:
+    simple:
+        format: "%(asctime)s - %(process)d - %(name)s - %(levelname)s - %(message)s"
+    verbose:
+        format: "%(asctime)s - %(name)s(%(funcName)s:%(lineno)d) - %(levelname)s: %(message)s"
+    json:
+        class: pythonjsonlogger.jsonlogger.JsonFormatter
+        format: "%(asctime)s %(name)s %(pathname)s %(funcName)s %(lineno)d %(levelname)s %(message)s"
+
+handlers:
+    console:
+        class: logging.StreamHandler
+        formatter: $STDOUT_FORMATTER
+        stream: ext://sys.stdout
+
+root:
+    level: INFO
+    handlers: [console]
+
+# Note: all loggers configured before init_logging() call are disabled. You need to explicitly define them in `loggers:` section

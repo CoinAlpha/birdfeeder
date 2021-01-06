@@ -2,7 +2,28 @@
 
 Helper library for CoinAlpha projects
 
-## Installation
+## Usage
+
+The library is not (yet?) published to pypi.
+
+In pyproject.toml:
+
+```
+birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", branch = "master" }
+birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", rev = "29cdd7229d0d35a989322f5026382400d1332da4" }
+birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", tag = "0.1.0" }
+```
+
+pip:
+
+```
+git+https://github.com/coinalpha/birdfeeder.git@master#egg=birdfeeder
+git+https://github.com/coinalpha/birdfeeder.git@29cdd7229d0d35a989322f5026382400d1332da4#egg=birdfeeder
+git+https://github.com/coinalpha/birdfeeder.git@0.1.0#egg=birdfeeder
+```
+
+
+## Development
 
 To install library for development in conda environment, run
 

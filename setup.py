@@ -11,38 +11,38 @@ except ImportError:
 
 import os.path
 
-readme = ""
+readme = ''
 here = os.path.abspath(os.path.dirname(__file__))
-readme_path = os.path.join(here, "README.rst")
+readme_path = os.path.join(here, 'README.rst')
 if os.path.exists(readme_path):
-    with open(readme_path, "rb") as stream:
-        readme = stream.read().decode("utf8")
+    with open(readme_path, 'rb') as stream:
+        readme = stream.read().decode('utf8')
 
 setup(
     long_description=readme,
-    name="birdfeeder",
-    version="0.1.0",
-    description="Helper library for CoinAlpha projects",
-    python_requires="==3.*,>=3.6.1",
+    name='birdfeeder',
+    version='0.1.0',
+    description='Helper library for CoinAlpha projects',
+    python_requires='==3.*,>=3.6.1',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
-    author="Vladimir Kamarzin",
-    author_email="vvk@vvk.pp.ru",
-    license="MIT",
+    author='Vladimir Kamarzin',
+    author_email='vvk@vvk.pp.ru',
+    license='MIT',
     classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
-        "Operating System :: OS Independent",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Operating System :: OS Independent',
+        'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    packages=["birdfeeder"],
+    packages=['birdfeeder'],
     package_dir={"": "."},
     package_data={},
-    install_requires=[],
+    install_requires=['python-json-logger==2.*,>=2.0.0', 'ruamel.yaml==0.*,>=0.16.0'],
     extras_require={
         "dev": [
             "poetry2conda==0.*,>=0.3.0",
             "pre-commit==2.*,>=2.2.0",
-            "pytest==5.*,>=5.4.0",
+            "pytest==6.*,>=6.0.0",
             "pytest-cov==2.*,>=2.7.0",
             "pytest-mock==3.*,>=3.1.0",
         ]
