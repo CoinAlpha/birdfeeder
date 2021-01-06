@@ -1,10 +1,13 @@
 import asyncio
 import inspect
 import logging
-import os
 import time
 
-SHOULD_INSPECT = os.getenv("ASYNCIO_INSPECT_CALLERS", False)
+from environs import Env
+
+env = Env()
+env.read_env()  # read .env file, if it exists
+SHOULD_INSPECT = env.bool("ASYNCIO_INSPECT_CALLERS", False)
 
 
 def get_callers(stack_size=5):
@@ -21,7 +24,11 @@ def get_callers(stack_size=5):
 
 
 def safe_ensure_future(coro, *args, **kwargs):
-    """Run a coroutine in a wrapper, catching and logging unexpected exception."""
+    """
+    Run a coroutine in a wrapper, catching and logging unexpected exception.
+
+    :envvar: ASYNCIO_INSPECT_CALLERS: if true, show callers on failure
+    """
     caller_names = ""
     if SHOULD_INSPECT:
         caller_names = "\n" + "\n".join([str(t) for t in get_callers()])
@@ -42,7 +49,11 @@ def safe_ensure_future(coro, *args, **kwargs):
 
 
 async def safe_gather(*args, **kwargs):
-    """Gather an awaitables logging unexpected exceptions."""
+    """
+    Gather an awaitables logging unexpected exceptions.
+
+    :envvar: ASYNCIO_INSPECT_CALLERS: if true, show callers on failure
+    """
     caller_names = ""
     if SHOULD_INSPECT:
         caller_names = "\n" + "\n".join([str(t) for t in get_callers()])
