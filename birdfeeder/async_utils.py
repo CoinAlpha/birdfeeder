@@ -71,9 +71,15 @@ async def safe_gather(*args, **kwargs):
         raise
 
 
-async def wait_til_next_tick(seconds: float = 1.0) -> None:
-    """Wait until the end of quantized time interval."""
+def calc_delay_til_next_tick(seconds: float) -> float:
+    """Calculate the delay to next tick."""
     now: float = time.time()
     current_tick: int = int(now // seconds)
     delay_til_next_tick: float = (current_tick + 1) * seconds - now
-    await asyncio.sleep(delay_til_next_tick)
+    return delay_til_next_tick
+
+
+async def wait_til_next_tick(seconds: float = 1.0) -> None:
+    """Wait until the end of quantized time interval."""
+    delay = calc_delay_til_next_tick(seconds)
+    await asyncio.sleep(delay)

@@ -47,6 +47,14 @@ async def test_safe_gather_2():
         await async_utils.safe_gather(bad_coroutine())
 
 
+def test_calc_delay_til_next_tick(mocker):
+    import time
+
+    mocker.patch.object(time, "time", return_value=0.1)
+    delay = async_utils.calc_delay_til_next_tick(5)
+    assert delay == 5 - 0.1
+
+
 @pytest.mark.asyncio
 async def test_wait_til_next_tick():
     await async_utils.wait_til_next_tick(seconds=0.001)
