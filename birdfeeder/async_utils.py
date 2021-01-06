@@ -8,7 +8,7 @@ from environs import Env
 
 env = Env()
 env.read_env()  # read .env file, if it exists
-SHOULD_INSPECT = env.bool("ASYNCIO_INSPECT_CALLERS", False)
+SHOULD_INSPECT = env.bool("INSPECT_CALLERS", False)
 
 
 def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:
@@ -28,7 +28,7 @@ def safe_ensure_future(coro, *args, **kwargs):
     """
     Run a coroutine in a wrapper, catching and logging unexpected exception.
 
-    :envvar: ASYNCIO_INSPECT_CALLERS: if true, show callers on failure
+    :envvar: INSPECT_CALLERS: if true, show callers on failure
     """
     caller_names = ""
     if SHOULD_INSPECT:
@@ -56,7 +56,7 @@ async def safe_gather(*args, **kwargs):
 
         Exception is logged and re-raised!
 
-    :envvar: ASYNCIO_INSPECT_CALLERS: if true, show callers on failure
+    :envvar: INSPECT_CALLERS: if true, show callers on failure
     """
     caller_names = ""
     if SHOULD_INSPECT:
