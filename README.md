@@ -50,6 +50,8 @@ If using poetry:
 
 ## Releasing a new version
 
+Idea: we're keeping own version and dependencies info in `pyproject.toml`, and then generating `setup.py` so that the library could be installed via tools like pip. We're also generating `environment.yml` file because we're mostly using conda to manage development environments at CoinAlpha.
+
 1. Change version in `pyproject.toml`
 1. Generate `setup.py`
 1. Generate `environment.yml`
