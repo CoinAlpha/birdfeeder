@@ -1,3 +1,9 @@
+handlers:
+    console:
+        class: logging.StreamHandler
+        formatter: $STDOUT_FORMATTER
+        stream: ext://sys.stdout
+
 loggers:
     testlogger:
         level: DEBUG
