@@ -1,4 +1,5 @@
 import asyncio
+import sys
 from unittest.mock import patch
 
 import pytest
@@ -56,6 +57,7 @@ def test_calc_delay_til_next_tick():
         assert delay == 5 - 0.1
 
 
+@pytest.mark.skipif(sys.version_info < (3, 8), reason="requires python3.8 or higher")
 @pytest.mark.asyncio
 async def test_wait_til_next_tick():
     with patch.object(asyncio, "sleep") as sleep:
