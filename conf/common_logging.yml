@@ -15,6 +15,14 @@ handlers:
         class: logging.StreamHandler
         formatter: $STDOUT_FORMATTER
         stream: ext://sys.stdout
+    file_handler:
+        class: logging.handlers.TimedRotatingFileHandler
+        formatter: verbose
+        filename: $PROJECT_DIR/logs/test.log
+        encoding: utf8
+        when: "D"
+        interval: 1
+        backupCount: 7
 
 root:
     level: INFO

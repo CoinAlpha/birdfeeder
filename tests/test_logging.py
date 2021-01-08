@@ -1,4 +1,5 @@
 import logging
+import os
 from unittest.mock import patch
 
 from birdfeeder.logging import Formatter, configure_logging_formatter, init_logging, read_logging_config
@@ -19,13 +20,14 @@ def test_configure_logging_formatter():
 
 
 def test_read_logging_config():
-    config = read_logging_config("common_logging.yml")
+    config = read_logging_config("conf/common_logging.yml")
     assert "formatters" in config
     assert "handlers" in config
     assert "root" in config
+    assert config["handlers"]["file_handler"]["filename"] == os.path.join(os.getcwd(), "logs/test.log")
 
 
 def test_init_logging():
-    init_logging("test_logging.yml")
+    init_logging("conf/test_logging.yml")
     log = logging.getLogger("testlogger")
     assert log.getEffectiveLevel() is logging.DEBUG

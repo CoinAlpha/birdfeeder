@@ -1,8 +1,8 @@
 import io
 import logging
 import logging.config
+import os
 from enum import Enum
-from os.path import join, realpath
 from typing import Any, Dict, List, Type, TypeVar
 
 from pythonjsonlogger.jsonlogger import JsonFormatter
@@ -45,27 +45,34 @@ def configure_logging_formatter(formatter: Formatter = Formatter.JSON) -> None:
         logger.propagate = False
 
 
-def read_logging_config(conf_filename: str, **kwargs: Any) -> Dict[str, Any]:
-    file_path: str = realpath(join(__file__, "../../conf/%s" % (conf_filename,)))
+def read_logging_config(file_path: str, **kwargs: Any) -> Dict[str, Any]:
+    """Read yaml-formatted config into dict."""
     yaml_parser: YAML = YAML()
     with open(file_path) as fd:
         yml_source: str = fd.read()
-        yml_source = yml_source.replace("$PROJECT_DIR", realpath(join(__file__, "../../")))
+
         for key, value in kwargs.items():
             yml_source = yml_source.replace(f"${key.upper()}", value)
+
+        # Assume that configs are located in `project_dir/something/`
+        project_dir = os.path.abspath(os.path.join(os.path.dirname(file_path), ".."))
+        yml_source = yml_source.replace("$PROJECT_DIR", project_dir)
+
         io_stream: io.StringIO = io.StringIO(yml_source)
         config: Dict = yaml_parser.load(io_stream)
+
     return config
 
 
 def init_logging(
-    conf_filename: str, load_common_config: bool = True, stdout_formatter: str = "verbose", **kwargs: Any
+    config_path: str, load_common_config: bool = True, stdout_formatter: str = "verbose", **kwargs: Any
 ) -> None:
     """
     Read logging configuration from file and configure loggers.
 
-    :param conf_filename: config filename, should be located in `conf` directory
-    :param load_common_config: if True, load common_logging.yml and merge config from `conf_filename`
+    :param config_path: path to the logging config file
+    :param load_common_config: if True, load common_logging.yml and merge config from `config_path`.
+        common_logging.yml should be located in the same directory as `config_path`
     :param stdout_formatter: should be one of the formatters defined inside config
     :param kwargs: any additional params, they are transformed to upper-case and used to replace $VARIABLEs in
         logging config
@@ -76,7 +83,9 @@ def init_logging(
     kwargs["stdout_formatter"] = stdout_formatter
 
     if load_common_config:
-        logging_config = read_logging_config("common_logging.yml", **kwargs)
+        dirname = os.path.dirname(config_path)
+        common_logging_path = os.path.join(dirname, "common_logging.yml")
+        logging_config = read_logging_config(common_logging_path, **kwargs)
 
-    logging_config.update(read_logging_config(conf_filename, **kwargs))
+    logging_config.update(read_logging_config(config_path, **kwargs))
     logging.config.dictConfig(logging_config)
