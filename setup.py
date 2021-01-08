@@ -37,12 +37,13 @@ setup(
     packages=['birdfeeder'],
     package_dir={"": "."},
     package_data={},
-    install_requires=['python-json-logger==2.*,>=2.0.0', 'ruamel.yaml==0.*,>=0.16.0'],
+    install_requires=['environs==9.*,>=9.0.0', 'python-json-logger==2.*,>=2.0.0', 'ruamel.yaml==0.*,>=0.16.0'],
     extras_require={
         "dev": [
             "poetry2conda==0.*,>=0.3.0",
             "pre-commit==2.*,>=2.2.0",
             "pytest==6.*,>=6.0.0",
+            "pytest-asyncio",
             "pytest-cov==2.*,>=2.7.0",
             "pytest-mock==3.*,>=3.1.0",
         ]

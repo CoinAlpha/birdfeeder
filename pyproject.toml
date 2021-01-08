@@ -45,6 +45,7 @@ classifiers = [
 python = "^3.6.1"
 "ruamel.yaml" = "^0.16"
 python-json-logger = "^2"
+environs = "^9"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/
@@ -53,6 +54,7 @@ pre-commit = "^2.2.0"
 pytest = "^6"
 pytest-cov = "^2.7"
 pytest-mock = "^3.1.0"
+pytest-asyncio = "*"
 
 [tool.poetry2conda]
 name = "birdfeeder"
@@ -60,6 +62,7 @@ name = "birdfeeder"
 [tool.poetry2conda.dependencies]
 poetry2conda = { channel = "pip" }
 pre-commit = { channel = "pip" }
+environs = { channel = "conda-forge" }
 
 [tool.black]
 line-length = 120
