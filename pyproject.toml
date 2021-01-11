@@ -57,6 +57,9 @@ pytest-cov = "^2.7"
 pytest-mock = "^3.1.0"
 pytest-asyncio = "*"
 
+[tool.poetry.scripts]
+build_image = 'birdfeeder.build_image:main'
+
 [tool.poetry2conda]
 name = "birdfeeder"
 

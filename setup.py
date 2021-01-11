@@ -34,6 +34,7 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+    entry_points={"console_scripts": ["build_image = birdfeeder.build_image:main"]},
     packages=['birdfeeder'],
     package_dir={"": "."},
     package_data={},
