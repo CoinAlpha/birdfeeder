@@ -46,6 +46,7 @@ python = "^3.6.1"
 "ruamel.yaml" = "^0.16"
 python-json-logger = "^2"
 environs = "^9"
+click = "^7"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/
