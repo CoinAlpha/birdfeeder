@@ -1,9 +1,18 @@
 import os
 from unittest.mock import mock_open, patch
 
+import pytest
 from click.testing import CliRunner
 
 from birdfeeder.build_image import get_available_images, get_org_from_dockerfile, main
+
+
+@pytest.fixture()
+def _chdir_to_test_dockerfiles():
+    current_dir = os.getcwd()
+    os.chdir(os.path.join(os.path.dirname(__file__), "dockerfiles"))
+    yield
+    os.chdir(current_dir)
 
 
 def test_get_available_images():
@@ -35,11 +44,11 @@ def test_main_no_dockerfiles():
     assert result.exit_code == 1
 
 
+@pytest.mark.usefixtures("_chdir_to_test_dockerfiles")
 @patch("birdfeeder.build_image.push_image")
 @patch("birdfeeder.build_image.build_image")
 def test_main(mock_build_image, mock_push_image):
     runner = CliRunner()
-    os.chdir(os.path.join(os.path.dirname(__file__), "dockerfiles"))
     result = runner.invoke(main, ["test", "--tag", "mytag", "--push"])
     assert result.exit_code == 0
     mock_build_image.assert_called_with("testorg", "Dockerfile.test", "test", "mytag")
