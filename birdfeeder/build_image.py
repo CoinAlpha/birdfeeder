@@ -42,7 +42,7 @@ def push_image(organization: str, image: str, image_tag: str) -> None:
     "--tag",
     help="Specify a tag to be used, instead of the default one. Default is to construct a tag using git revision.",
 )
-@click.argument("image")
+@click.argument("image", default='^_^')
 def main(push, tag, image):
     """
     Build docker IMAGE.
@@ -51,7 +51,7 @@ def main(push, tag, image):
     """
     available_images = get_available_images()
     if image not in available_images:
-        click.echo("Bad image argument. Available images:")
+        click.echo("Bad or missing image argument.\nTry 'build_image.py --help' for help.\n\nAvailable images:")
         for i in available_images:
             click.echo(f"- {i}")
         sys.exit(1)
