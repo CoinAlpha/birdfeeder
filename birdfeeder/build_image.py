@@ -51,7 +51,9 @@ def main(push, tag, image):
     """
     available_images = get_available_images()
     if image not in available_images:
-        click.echo(f"Bad image argument. Available images: {available_images}.")
+        click.echo("Bad image argument. Available images:")
+        for i in available_images:
+            click.echo(f"- {i}")
         sys.exit(1)
 
     short_rev = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode("utf8").strip()  # noqa: DUO116
