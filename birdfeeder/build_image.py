@@ -51,7 +51,7 @@ def main(push, tag, image):
     """
     available_images = get_available_images()
     if image not in available_images:
-        click.echo("Bad or missing image argument.\nTry 'build_image.py --help' for help.\n\nAvailable images:")
+        click.echo(f"Bad or missing image argument.\nTry '{sys.argv[0]} --help' for help.\n\nAvailable images:")
         for i in available_images:
             click.echo(f"- {i}")
         sys.exit(1)
