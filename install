@@ -21,16 +21,15 @@ PROJECT="$(grep "^name" environment.yml | cut -d' ' -f2)"
 CONDA_BIN=$(dirname ${CONDA_EXE})
 ENV_FILE=environment.yml
 
-if ${CONDA_EXE} env list | egrep -qe "^$PROJECT"; then
-    ${CONDA_EXE} env update -f $ENV_FILE
+if conda env list | egrep -qe "^$PROJECT"; then
+    conda env update -f $ENV_FILE
 else
-    ${CONDA_EXE} env create -f $ENV_FILE
+    conda env create -f $ENV_FILE
 fi
 
-source "${CONDA_BIN}/activate" $PROJECT
-
 # Add the project directory to module search paths.
-${CONDA_EXE} develop .
+source "${CONDA_BIN}/activate" $PROJECT
+conda develop .
 
 pre-commit install
 
