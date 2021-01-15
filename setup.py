@@ -40,6 +40,7 @@ setup(
     package_data={},
     install_requires=[
         'environs==9.*,>=9.0.0',
+        'pandas==1.*,>=1.1.0',
         'python-json-logger==2.*,>=2.0.0',
         'ruamel.yaml==0.*,>=0.16.0',
         'typer==0.*,>=0.3.0',
