@@ -25,7 +25,7 @@ versioning = "zerover"
 
 [tool.poetry]
 name = "birdfeeder"
-version = "0.1.0"
+version = "0.2.0"
 description = "Helper library for CoinAlpha projects"
 license = "MIT"
 authors = ["Vladimir Kamarzin <vvk@vvk.pp.ru>"]
