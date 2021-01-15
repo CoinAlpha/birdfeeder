@@ -2,9 +2,17 @@ import os
 from unittest.mock import mock_open, patch
 
 import pytest
-from click.testing import CliRunner
+from typer.testing import CliRunner
 
-from birdfeeder.build_image import get_available_images, get_org_from_dockerfile, main
+from birdfeeder.build_image import (
+    app,
+    get_available_images,
+    get_default_image_tag,
+    get_org_from_dockerfile,
+    get_short_rev,
+)
+
+runner = CliRunner()
 
 
 @pytest.fixture()
@@ -38,9 +46,16 @@ def test_get_org_from_dockerfile():
         assert org == test_org
 
 
+def test_get_short_rev():
+    assert isinstance(get_short_rev(), str)
+
+
+def test_get_default_image_tag():
+    assert isinstance(get_default_image_tag(), str)
+
+
 def test_main_no_dockerfiles():
-    runner = CliRunner()
-    result = runner.invoke(main, ["nonexistent"])
+    result = runner.invoke(app, ["nonexistent"])
     assert result.exit_code == 1
 
 
@@ -48,8 +63,7 @@ def test_main_no_dockerfiles():
 @patch("birdfeeder.build_image.push_image")
 @patch("birdfeeder.build_image.build_image")
 def test_main(mock_build_image, mock_push_image):
-    runner = CliRunner()
-    result = runner.invoke(main, ["test", "--tag", "mytag", "--push"])
+    result = runner.invoke(app, ["test", "--tag", "mytag", "--push"])
     assert result.exit_code == 0
     mock_build_image.assert_called_with("testorg", "Dockerfile.test", "test", "mytag")
     mock_push_image.assert_called_with("testorg", "test", "mytag")

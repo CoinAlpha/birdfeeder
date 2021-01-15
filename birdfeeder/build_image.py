@@ -1,12 +1,13 @@
 import os
 import subprocess
-import sys
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
-import click
+import typer
 
-DEFAULT_ORGRANIZATION = "coinalpha"
+DEFAULT_ORGANIZATION = "coinalpha"
+
+app = typer.Typer()
 
 
 def get_available_images() -> List[str]:
@@ -22,7 +23,7 @@ def get_org_from_dockerfile(dockerfile: str) -> str:
             if line.startswith("LABEL org"):
                 return line.split("=")[1].strip().strip('"')
 
-    return DEFAULT_ORGRANIZATION  # fallback
+    return DEFAULT_ORGANIZATION  # fallback
 
 
 def build_image(organization: str, dockerfile: str, image: str, tag: str) -> None:
@@ -36,14 +37,29 @@ def push_image(organization: str, image: str, image_tag: str) -> None:
     subprocess.check_call(f"docker push {organization}/{image}:{image_tag}", shell=True)  # noqa: DUO116
 
 
-@click.command()
-@click.option("--push", is_flag=True, help="Push the new image to Docker Hub.")
-@click.option(
-    "--tag",
-    help="Specify a tag to be used, instead of the default one. Default is to construct a tag using git revision.",
-)
-@click.argument("image", default='^_^')
-def main(push, tag, image):
+def get_short_rev() -> str:
+    """Get current git revision in a short form."""
+    short_rev = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode("utf8").strip()  # noqa: DUO116
+    return short_rev
+
+
+def get_default_image_tag() -> str:
+    """Construct a docker image tag using date and git short revision."""
+    short_rev = get_short_rev()
+    image_tag: str = f"{datetime.utcnow().strftime('%Y%m%d')}.git-{short_rev}"
+    return image_tag
+
+
+@app.command()
+def main(
+    image: Optional[str] = typer.Argument(None),  # noqa: B008
+    push: bool = typer.Option(False, is_flag=True, help="Push the new image to Docker Hub."),  # noqa: B008
+    tag: Optional[str] = typer.Option(  # noqa: B008
+        get_default_image_tag(),
+        help="Specify a tag to be used, instead of the default one. "
+        "Default is to construct a tag using current git revision (short).",
+    ),
+) -> None:
     """
     Build docker IMAGE.
 
@@ -51,21 +67,24 @@ def main(push, tag, image):
     """
     available_images = get_available_images()
     if image not in available_images:
-        click.echo(f"Bad or missing image argument.\nTry '{sys.argv[0]} --help' for help.\n\nAvailable images:")
+        typer.echo("Bad or missing image argument.\nTry --help' for help.\n\nAvailable images:")
         for i in available_images:
-            click.echo(f"- {i}")
-        sys.exit(1)
-
-    short_rev = subprocess.check_output("git rev-parse --short HEAD", shell=True).decode("utf8").strip()  # noqa: DUO116
-    image_tag: str = tag or f"{datetime.utcnow().strftime('%Y%m%d')}.git-{short_rev}"
+            typer.echo(f"- {i}")
+        raise typer.Exit(code=1)
 
     dockerfile = f"Dockerfile.{image}"
     organization = get_org_from_dockerfile(dockerfile)
-    build_image(organization, dockerfile, image, image_tag)
+
+    if tag is None:
+        # Just to make mypy happy
+        typer.echo("Tag cannot be None")
+        raise typer.Abort()
+
+    build_image(organization, dockerfile, image, tag)
 
     if push:
-        push_image(organization, image, image_tag)
+        push_image(organization, image, tag)
 
 
 if __name__ == '__main__':
-    main()
+    app()

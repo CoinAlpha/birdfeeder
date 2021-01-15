@@ -34,15 +34,15 @@ setup(
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    entry_points={"console_scripts": ["build_image = birdfeeder.build_image:main"]},
+    entry_points={"console_scripts": ["build_image = birdfeeder.build_image:app"]},
     packages=['birdfeeder'],
     package_dir={"": "."},
     package_data={},
     install_requires=[
-        'click==7.*,>=7.0.0',
         'environs==9.*,>=9.0.0',
         'python-json-logger==2.*,>=2.0.0',
         'ruamel.yaml==0.*,>=0.16.0',
+        'typer==0.*,>=0.3.0',
     ],
     extras_require={
         "dev": [
