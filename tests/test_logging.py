@@ -31,3 +31,15 @@ def test_init_logging():
     init_logging("conf/test_logging.yml")
     log = logging.getLogger("testlogger")
     assert log.getEffectiveLevel() is logging.DEBUG
+
+
+def test_init_logging_existing():
+    log = logging.getLogger("existing1")
+    init_logging("conf/test_logging.yml", keep_existing=False)
+    assert log.disabled is True
+
+    log = logging.getLogger("existing2")
+    log.setLevel(logging.DEBUG)
+    init_logging("conf/test_logging.yml", keep_existing=True)
+    assert log.disabled is False
+    assert log.getEffectiveLevel() == logging.DEBUG

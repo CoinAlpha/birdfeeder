@@ -65,7 +65,11 @@ def read_logging_config(file_path: str, **kwargs: Any) -> Dict[str, Any]:
 
 
 def init_logging(
-    config_path: str, load_common_config: bool = True, stdout_formatter: str = "verbose", **kwargs: Any
+    config_path: str,
+    load_common_config: bool = True,
+    keep_existing: bool = True,
+    stdout_formatter: str = "verbose",
+    **kwargs: Any,
 ) -> None:
     """
     Read logging configuration from file and configure loggers.
@@ -73,6 +77,7 @@ def init_logging(
     :param config_path: path to the logging config file
     :param load_common_config: if True, load common_logging.yml and merge config from `config_path`.
         common_logging.yml should be located in the same directory as `config_path`
+    :param keep_existing: if True, existing loggers are kept, but reconfigured to proparate to a new root logger
     :param stdout_formatter: should be one of the formatters defined inside config
     :param kwargs: any additional params, they are transformed to upper-case and used to replace $VARIABLEs in
         logging config
@@ -87,5 +92,13 @@ def init_logging(
         common_logging_path = os.path.join(dirname, "common_logging.yml")
         logging_config = read_logging_config(common_logging_path, **kwargs)
 
-    logging_config.update(read_logging_config(config_path, **kwargs))
+    overrides_config = read_logging_config(config_path, **kwargs)
+    overrides_config.setdefault("loggers", {})
+
+    if keep_existing:
+        for name in logging.getLogger().manager.loggerDict:  # type: ignore
+            logger = logging.getLogger(name)
+            overrides_config["loggers"][name] = {"level": logger.getEffectiveLevel()}
+
+    logging_config.update(overrides_config)
     logging.config.dictConfig(logging_config)

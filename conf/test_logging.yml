@@ -4,8 +4,13 @@ handlers:
         formatter: $STDOUT_FORMATTER
         stream: ext://sys.stdout
 
+# This logger is sending logs directly to the handler, and not propagates to the root logger
 loggers:
     testlogger:
         level: DEBUG
         handlers: [console]
         propagate: 0
+
+    # This logger only sets level, while all messages are propagated to the root logger
+    another:
+        level: DEBUG
