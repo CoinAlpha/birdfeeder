@@ -98,7 +98,7 @@ def init_logging(
     if keep_existing:
         for name in logging.getLogger().manager.loggerDict:  # type: ignore
             logger = logging.getLogger(name)
-            overrides_config["loggers"][name] = {"level": logger.getEffectiveLevel()}
+            overrides_config["loggers"].setdefault(name, {"level": logger.getEffectiveLevel()})
 
     logging_config.update(overrides_config)
     logging.config.dictConfig(logging_config)
