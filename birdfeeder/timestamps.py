@@ -3,7 +3,7 @@ from typing import Union
 
 import pandas as pd
 
-from .typing import Timestamp_ms
+from .typing_local import Timestamp_ms
 
 
 def get_current_timestamp() -> Timestamp_ms:

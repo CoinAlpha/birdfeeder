@@ -2,7 +2,7 @@ import time
 from collections import deque
 from typing import Callable, Deque, Iterable, NamedTuple, Union
 
-from .typing import Timestamp_ms
+from .typing_local import Timestamp_ms
 
 
 class TimedMetricItem(NamedTuple):

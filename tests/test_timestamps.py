@@ -4,7 +4,7 @@ from unittest.mock import patch
 import pandas as pd
 
 from birdfeeder.timestamps import get_current_timestamp, pd_ts_to_timestamp_ms
-from birdfeeder.typing import Timestamp_ms
+from birdfeeder.typing_local import Timestamp_ms
 
 
 def test_get_current_timestamp():
