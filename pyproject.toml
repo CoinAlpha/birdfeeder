@@ -48,6 +48,7 @@ python-json-logger = "^2"
 environs = "^9"
 typer = "^0.3"
 pandas = "^1.1"
+cachetools = "^4"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/

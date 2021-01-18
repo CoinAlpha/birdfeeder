@@ -1,4 +1,5 @@
 import asyncio
+import random
 import sys
 from unittest.mock import patch
 
@@ -17,6 +18,21 @@ async def bad_coroutine():
 
 def test_should_inspect():
     assert async_utils.SHOULD_INSPECT is False
+
+
+@pytest.mark.asyncio
+async def test_async_ttl_cache():
+    @async_utils.async_ttl_cache(30, 10)
+    async def func():
+        return random.randint(0, 999999)  # noqa: DUO102
+
+    # Non-cached
+    result = await func()
+    assert result > 0
+
+    # Cached
+    result2 = await func()
+    assert result2 == result
 
 
 def test_get_callers():

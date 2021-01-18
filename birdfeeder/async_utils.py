@@ -1,14 +1,36 @@
 import asyncio
+import functools
 import inspect
 import logging
 import time
 from typing import Any, List, Tuple
 
+import cachetools
 from environs import Env
 
 env = Env()
 env.read_env()  # read .env file, if it exists
 SHOULD_INSPECT = env.bool("INSPECT_CALLERS", False)
+
+
+def async_ttl_cache(ttl: int = 3600, maxsize: int = 1) -> Any:
+    """Decorator to cache a coroutine result using :py:class:`cachetools.TTLCache`."""
+    cache: cachetools.TTLCache = cachetools.TTLCache(ttl=ttl, maxsize=maxsize)
+
+    def decorator(fn):
+        @functools.wraps(fn)
+        async def memoize(*args, **kwargs):
+            key = str((args, kwargs))
+            try:
+                return cache[key]
+            except KeyError:
+                result = await fn(*args, **kwargs)
+                cache[key] = result
+                return result
+
+        return memoize
+
+    return decorator
 
 
 def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:

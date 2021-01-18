@@ -39,6 +39,7 @@ setup(
     package_dir={"": "."},
     package_data={},
     install_requires=[
+        'cachetools==4.*,>=4.0.0',
         'environs==9.*,>=9.0.0',
         'pandas==1.*,>=1.1.0',
         'python-json-logger==2.*,>=2.0.0',
