@@ -54,7 +54,7 @@ def get_default_image_tag() -> str:
 def main(
     image: Optional[str] = typer.Argument(None),  # noqa: B008
     push: bool = typer.Option(False, is_flag=True, help="Push the new image to Docker Hub."),  # noqa: B008
-    tag: Optional[str] = typer.Option(  # noqa: B008
+    tag: str = typer.Option(  # noqa: B008
         get_default_image_tag(),
         help="Specify a tag to be used, instead of the default one. "
         "Default is to construct a tag using current git revision (short).",
@@ -74,12 +74,6 @@ def main(
 
     dockerfile = f"Dockerfile.{image}"
     organization = get_org_from_dockerfile(dockerfile)
-
-    if tag is None:
-        # Just to make mypy happy
-        typer.echo("Tag cannot be None")
-        raise typer.Abort()
-
     build_image(organization, dockerfile, image, tag)
 
     if push:
