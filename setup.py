@@ -53,7 +53,7 @@ setup(
             "pre-commit==2.*,>=2.2.0",
             "pytest==6.*,>=6.0.0",
             "pytest-aiohttp",
-            "pytest-asyncio",
+            "pytest-asyncio==0.*,>=0.14.0",
             "pytest-cov==2.*,>=2.7.0",
             "pytest-mock==3.*,>=3.1.0",
         ]
