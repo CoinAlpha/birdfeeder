@@ -40,6 +40,7 @@ setup(
     package_data={},
     install_requires=[
         'aiohttp==3.*,>=3.2.0',
+        'aiorun==2020.*,>=2020.0.0',
         'cachetools==4.*,>=4.0.0',
         'environs==9.*,>=9.0.0',
         'pandas==1.*,>=1.1.0',

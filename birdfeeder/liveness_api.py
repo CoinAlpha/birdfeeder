@@ -7,6 +7,7 @@ from typing import Optional
 
 import pandas as pd
 from aiohttp import web
+from aiorun import run
 from environs import Env
 
 from .async_utils import safe_ensure_future
@@ -67,7 +68,7 @@ class WebServer:
     @classmethod
     def run_in_loop(cls, *args, **kwargs):
         """Use this when you're starting the server from a separate process."""
-        asyncio.run(cls.run_server(*args, **kwargs))
+        run(cls.run_server(*args, **kwargs), stop_on_unhandled_errors=True)
 
     async def health_check(self, _: web.Request) -> web.Response:
         """

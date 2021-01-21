@@ -50,6 +50,7 @@ typer = "^0.3"
 pandas = "^1.1"
 cachetools = "^4"
 aiohttp = "^3.2"
+aiorun = "^2020"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/
@@ -72,6 +73,7 @@ poetry2conda = { channel = "pip" }
 pre-commit = { channel = "pip" }
 environs = { channel = "conda-forge" }
 typer = { channel = "conda-forge" }
+aiorun = { channel = "conda-forge" }
 
 [tool.black]
 line-length = 120
