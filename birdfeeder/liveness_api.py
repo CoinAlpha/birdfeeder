@@ -93,6 +93,8 @@ class LivenessAPIV2:
     time whether the underlying app is really busy doing some CPU-intensive work, thus triggering a container
     restart. Running in separate process allows to monitor a busy app much better.
 
+    The monitored client should inherit from LivenessClient and implement `last_success_timestamp` property.
+
     Intended to be used as a context manager:
 
     .. code-block:: python
