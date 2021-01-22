@@ -63,6 +63,8 @@ Idea: we're keeping own version and dependencies info in ``pyproject.toml``\ , a
 #. Change version in ``pyproject.toml``
 #. Generate ``setup.py``
 #. Generate ``environment.yml``
+#. Create git tag ``x.y.z``
+#. Run ``git push && git push --tags``
 
 Generate ``setup.py``\ :
 

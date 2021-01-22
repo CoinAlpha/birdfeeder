@@ -51,6 +51,7 @@ pandas = "^1.1"
 cachetools = "^4"
 aiohttp = "^3.2"
 aiorun = "^2020"
+kafka-python = "^2"
 
 [tool.poetry.dev-dependencies]
 # See https://python-poetry.org/docs/dependency-specification/
@@ -61,6 +62,7 @@ pytest-cov = "^2.7"
 pytest-mock = "^3.1.0"
 pytest-asyncio = "^0.14"
 pytest-aiohttp = "*"
+docker = "^4"
 
 [tool.poetry.scripts]
 build_image = 'birdfeeder.build_image:app'
@@ -74,6 +76,8 @@ pre-commit = { channel = "pip" }
 environs = { channel = "conda-forge" }
 typer = { channel = "conda-forge" }
 aiorun = { channel = "conda-forge" }
+kafka-python = { channel = "conda-forge" }
+docker = { name = "docker-py" }
 
 [tool.black]
 line-length = 120

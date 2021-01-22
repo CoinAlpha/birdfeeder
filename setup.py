@@ -43,6 +43,7 @@ setup(
         'aiorun==2020.*,>=2020.0.0',
         'cachetools==4.*,>=4.0.0',
         'environs==9.*,>=9.0.0',
+        'kafka-python==2.*,>=2.0.0',
         'pandas==1.*,>=1.1.0',
         'python-json-logger==2.*,>=2.0.0',
         'ruamel.yaml==0.*,>=0.16.0',
@@ -50,6 +51,7 @@ setup(
     ],
     extras_require={
         "dev": [
+            "docker==4.*,>=4.0.0",
             "poetry2conda==0.*,>=0.3.0",
             "pre-commit==2.*,>=2.2.0",
             "pytest==6.*,>=6.0.0",
