@@ -3,7 +3,7 @@ from typing import Union
 
 import pandas as pd
 
-from .typing_local import Timestamp_ms
+from .typing_local import Timestamp_ms, Timestamp_s
 
 
 def get_current_timestamp() -> Timestamp_ms:
@@ -24,3 +24,13 @@ def pd_ts_to_timestamp_ms(ts_input: Union[str, int, float, pd.Timestamp]) -> Tim
 
     ts: Timestamp_ms = int(timestamp.timestamp() * 1e3)
     return ts
+
+
+def timestamp_ms_to_str(ts: Timestamp_ms) -> str:
+    """Convert millisecond timestamp into human-readable form."""
+    return f"{pd.Timestamp(ts, unit='ms')}"
+
+
+def timestamp_s_to_str(ts: Timestamp_s) -> str:
+    """Convert unixtime timestamp into human-readable form."""
+    return f"{pd.Timestamp(ts, unit='s')}"
