@@ -48,10 +48,14 @@ async def test_safe_ensure_future_1():
 
 
 @pytest.mark.asyncio
-async def test_safe_ensure_future_2():
+async def test_safe_ensure_future_2(caplog):
     async_utils.SHOULD_INSPECT = True
     # Should log unhandled exception with callers
     await async_utils.safe_ensure_future(bad_coroutine())
+    assert (
+        "Unhandled error in background task: boom \n(1, \'birdfeeder.async_utils\', \'safe_ensure_future\')"
+        in caplog.text
+    )
 
 
 @pytest.mark.asyncio
