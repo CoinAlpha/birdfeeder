@@ -63,5 +63,6 @@ Idea: we're keeping own version and dependencies info in ``pyproject.toml``\ , a
 #. Change version in ``pyproject.toml``
 #. Generate ``setup.py``\ : ``dephell deps convert``
 #. Generate ``environment.yml``\ : ``poetry2conda --dev pyproject.toml environment.yml``
-#. Create git tag ``x.y.z``
+#. Commit updates ``git add -u && git commit``
+#. Create git tag ``x.y.z``\ : ``git tag x.y.z``
 #. Run ``git push && git push --tags``
