@@ -8,6 +8,7 @@ import pandas as pd
 import pytest
 
 from birdfeeder.liveness_api import LivenessAPIV2, LivenessClient, WebServer
+from birdfeeder.timestamps import get_current_timestamp
 
 log = logging.getLogger(__name__)
 
@@ -18,6 +19,7 @@ class Worker(LivenessClient):
     def __init__(self):
         super().__init__()
         self._task = None
+        self._last_successful_execution = get_current_timestamp()
 
     @staticmethod
     async def do_work():

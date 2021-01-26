@@ -11,6 +11,7 @@ from aiorun import run
 from environs import Env
 
 from .async_utils import safe_ensure_future
+from .typing_local import Timestamp_ms
 
 env = Env()
 env.read_env()  # read .env file, if it exists
@@ -23,11 +24,11 @@ class LivenessClient:
     """Use this class (make a subclass) to override last success timestamp retrieval."""
 
     def __init__(self):
-        self._last_successful_execution = pd.Timestamp.utcnow()
+        self._last_successful_execution: Timestamp_ms = 0
 
     @property
     def last_success_timestamp(self) -> pd.Timestamp:
-        return self._last_successful_execution
+        return pd.Timestamp(self._last_successful_execution, unit='ms')
 
 
 class WebServer:
@@ -94,7 +95,8 @@ class LivenessAPIV2:
     time whether the underlying app is really busy doing some CPU-intensive work, thus triggering a container
     restart. Running in separate process allows to monitor a busy app much better.
 
-    The monitored client should inherit from LivenessClient and implement `last_success_timestamp` property.
+    The monitored client should inherit from LivenessClient and implement `last_success_timestamp` property (or set
+    self._last_successful_execution attribute).
 
     Intended to be used as a context manager:
 
