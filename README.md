@@ -53,20 +53,7 @@ If using poetry:
 Idea: we're keeping own version and dependencies info in `pyproject.toml`, and then generating `setup.py` so that the library could be installed via tools like pip. We're also generating `environment.yml` file because we're mostly using conda to manage development environments at CoinAlpha.
 
 1. Change version in `pyproject.toml`
-1. Generate `setup.py`
-1. Generate `environment.yml`
+1. Generate `setup.py`: `dephell deps convert`
+1. Generate `environment.yml`: `poetry2conda --dev pyproject.toml environment.yml`
 1. Create git tag `x.y.z`
 1. Run `git push && git push --tags`
-
-
-Generate `setup.py`:
-
-```
-dephell deps convert
-```
-
-Generate conda `environment.yml`:
-
-```
-poetry2conda --dev pyproject.toml environment.yml
-```
