@@ -1,10 +1,12 @@
 import json
+from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 
+import pandas as pd
 import pytest
 
-from birdfeeder.json_helpers import to_valid_json_dict
+from birdfeeder.json_helpers import json_decode_hook, json_encode_default, to_valid_json_dict
 
 
 class Car(Enum):
@@ -66,3 +68,24 @@ def test_json_enum():
         json.dumps(case)
 
     json.dumps(out)
+
+
+def test_json_encode_default_decimal():
+    case = dict_with_decimal
+    encoded = json.dumps(case, default=json_encode_default)
+    decoded = json.loads(encoded, object_hook=json_decode_hook)
+    assert decoded == case
+
+
+def test_json_encode_default_pd_timestamp():
+    case = {"foo": pd.Timestamp("2021-01-01")}
+    encoded = json.dumps(case, default=json_encode_default)
+    decoded = json.loads(encoded, object_hook=json_decode_hook)
+    assert decoded == case
+
+
+def test_json_encode_default_datetime():
+    case = {"foo": datetime.utcnow()}
+    encoded = json.dumps(case, default=json_encode_default)
+    decoded = json.loads(encoded, object_hook=json_decode_hook)
+    assert decoded == case
