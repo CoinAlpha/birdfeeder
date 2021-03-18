@@ -77,7 +77,7 @@ def init_logging(
     :param config_path: path to the logging config file
     :param load_common_config: if True, load common_logging.yml and merge config from `config_path`.
         common_logging.yml should be located in the same directory as `config_path`
-    :param keep_existing: if True, existing loggers are kept, but reconfigured to proparate to a new root logger
+    :param keep_existing: if True, existing loggers are kept, but reconfigured to propagate to a new root logger
     :param stdout_formatter: should be one of the formatters defined inside config
     :param kwargs: any additional params, they are transformed to upper-case and used to replace $VARIABLEs in
         logging config
@@ -96,9 +96,13 @@ def init_logging(
     overrides_config.setdefault("loggers", {})
 
     if keep_existing:
-        for name in logging.getLogger().manager.loggerDict:  # type: ignore
-            logger = logging.getLogger(name)
-            overrides_config["loggers"].setdefault(name, {"level": logger.getEffectiveLevel()})
+        name: str
+        logger: logging.Logger
+        for name, logger in logging.getLogger().manager.loggerDict.items():  # type: ignore
+            if not isinstance(logger, logging.PlaceHolder):
+                # We're finding out loggers which were initialized by `getLogger()` call, and preserving their exact
+                # level, which is logging.NOTSET by default
+                overrides_config["loggers"].setdefault(name, {"level": logger.level})
 
     logging_config.update(overrides_config)
     logging.config.dictConfig(logging_config)

@@ -44,3 +44,23 @@ def test_init_logging_existing():
     init_logging("conf/test_logging.yml", keep_existing=True)
     assert log.disabled is False
     assert log.getEffectiveLevel() == logging.DEBUG
+
+
+def test_child_loggers_python_native():
+    """Demo test to show python logging behavior."""
+    # Child logger is initialized without setting level explicitly
+    child = logging.getLogger("parent.child")
+    parent = logging.getLogger("parent")
+    # Then we're setting level on parent logger
+    parent.setLevel(logging.INFO)
+    # Child logger level is now same as the parent
+    assert child.getEffectiveLevel() == logging.INFO
+
+
+def test_child_loggers_init_logging():
+    """Check that init_logging behaviour is identical to python logging as shown in test_child_loggers_python_native."""
+    child = logging.getLogger("parent.child")
+    init_logging("conf/test_logging.yml", keep_existing=True)
+    parent = logging.getLogger("parent")
+    parent.setLevel(logging.INFO)
+    assert child.getEffectiveLevel() == logging.INFO
