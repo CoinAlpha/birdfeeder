@@ -61,7 +61,7 @@ async def server(event_loop, endpoint):
     server_task.cancel()
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_standalone_webserver(server):
     """
     Test liveness API webserver running in a current process.
@@ -83,7 +83,7 @@ async def test_standalone_webserver(server):
         assert response.status == 418
 
 
-@pytest.mark.asyncio
+@pytest.mark.asyncio()
 async def test_livenessv2(worker, endpoint):
     """Test liveness API webserver running in a separate process."""
     url, port = endpoint
