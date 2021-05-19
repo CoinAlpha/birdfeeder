@@ -59,6 +59,13 @@ async def test_safe_ensure_future_2(caplog):
 
 
 @pytest.mark.asyncio()
+async def test_safe_ensure_future_named_1():
+    safe_wrapped = async_utils.safe_ensure_future(ok_coroutine())
+    await safe_wrapped
+    assert 'safe_ok_coroutine' in repr(safe_wrapped)
+
+
+@pytest.mark.asyncio()
 async def test_safe_gather_1():
     await async_utils.safe_gather(ok_coroutine())
 

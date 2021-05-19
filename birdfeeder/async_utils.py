@@ -67,7 +67,12 @@ def safe_ensure_future(coro, *args, **kwargs):
                 exc_info=True,
             )
 
-    return asyncio.ensure_future(safe_wrapper(coro), *args, **kwargs)
+    wrapped_coro = safe_wrapper(coro)
+
+    if coro.__name__ and isinstance(coro.__name__, str) and coro.__name__.isidentifier():
+        wrapped_coro.__qualname__ = f"safe_{coro.__qualname__}"
+
+    return asyncio.ensure_future(wrapped_coro, *args, **kwargs)
 
 
 async def safe_gather(*args, **kwargs):
