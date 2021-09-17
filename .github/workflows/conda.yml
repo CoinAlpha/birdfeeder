@@ -13,9 +13,11 @@ jobs:
         with:
           python-version: 3.x
 
-      # Remove envs directory if exists to prevent cache restore errors. Github runner already has bundled conda.
-      - name: Remove envs directory
-        run: rm -rf /usr/share/miniconda/envs
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: "birdfeeder"
+          auto-activate-base: false
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
 
       # Check for environment.yml changes
       - name: Cache conda dependencies
@@ -29,12 +31,6 @@ jobs:
             ~/conda_pkgs_dir
             /usr/share/miniconda/envs
           key: ${{ runner.os }}-conda-${{ env.CONDA_CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
-
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: "birdfeeder"
-          auto-activate-base: false
-          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
 
       - name: Run install script
         # Only need to run install when deps has been changed
