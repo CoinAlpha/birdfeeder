@@ -122,7 +122,7 @@ async def safe_cancel(task: asyncio.Task, info: str, cancel_wait_timeout: Union[
         except asyncio.TimeoutError:
             log.warning(f"Task failed to stop: {task}, additional task info: {info}, retries: {retries}")
         else:
-            log.info(f"Task cancelled: {task.get_coro()}, additional info: {info}")
+            log.info(f"Task cancelled: {task}, additional info: {info}")
             return retries
 
         retries += 1
