@@ -4,6 +4,7 @@ import sys
 from unittest.mock import patch
 
 import pytest
+from async_timeout import timeout
 
 from birdfeeder import async_utils
 
@@ -90,3 +91,27 @@ async def test_wait_til_next_tick():
     with patch.object(asyncio, "sleep") as sleep:
         await async_utils.wait_til_next_tick(seconds=0.001)
         sleep.assert_called_once()
+
+
+@pytest.mark.asyncio()
+async def test_safe_cancel():
+    cancel_after_num_retries = 3
+
+    async def flaky_task():
+        count = 0
+        while True:
+            try:
+                await asyncio.sleep(300)
+            except asyncio.CancelledError:
+                if count < cancel_after_num_retries:
+                    pass
+                else:
+                    raise
+                count += 1
+
+    task = asyncio.create_task(flaky_task())
+    await asyncio.sleep(0)
+    async with timeout(30):
+        retries_made = await async_utils.safe_cancel(task, info="test", cancel_wait_timeout=0.1)
+
+    assert retries_made == cancel_after_num_retries
