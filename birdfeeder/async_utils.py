@@ -3,11 +3,13 @@ import functools
 import inspect
 import logging
 import time
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Union
 
 import cachetools
+from async_timeout import timeout
 from environs import Env
 
+log = logging.getLogger(__name__)
 env = Env()
 env.read_env()  # read .env file, if it exists
 SHOULD_INSPECT = env.bool("INSPECT_CALLERS", False)
@@ -96,6 +98,34 @@ async def safe_gather(*args, **kwargs):
             exc_info=True,
         )
         raise
+
+
+async def safe_cancel(task: asyncio.Task, info: str, cancel_wait_timeout: Union[int, float] = 10) -> int:
+    """
+    Cancel asyncio task and retry cancel if task didn't finished.
+
+    :param task: Task to cancel
+    :param info: some additional info to log when cancelling a task
+    :param cancel_wait_timeout: how many seconds wait for task to cancel before retrying
+    :return: how many attempts has been made to cancel a task
+    """
+    retries = 0
+
+    while True:
+        task.cancel()
+        log.debug(f"Task cancel request sent to task: {task}, additional info: {info}")
+
+        try:
+            async with timeout(cancel_wait_timeout):
+                while not task.done():
+                    await asyncio.sleep(cancel_wait_timeout / 10)
+        except asyncio.TimeoutError:
+            log.warning(f"Task failed to stop: {task}, additional task info: {info}, retries: {retries}")
+        else:
+            log.info(f"Task cancelled: {task.get_coro()}, additional info: {info}")
+            return retries
+
+        retries += 1
 
 
 def calc_delay_til_next_tick(seconds: float) -> float:
