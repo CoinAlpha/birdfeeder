@@ -17,8 +17,10 @@ dependencies:
   - pandas>=1.1,<2.0
   - cachetools>=4,<5
   - aiohttp>=3.2,<4.0
+  - boto3>=1.20.24,<2.0.0
   - conda-forge::aiorun>=2020,<2021
   - conda-forge::kafka-python>=2,<3
+  - pydantic>=1.9.0,<2.0.0
   - pytest>=6,<7
   - pytest-cov>=2.7,<3.0
   - pytest-mock>=3.1.0,<4.0.0

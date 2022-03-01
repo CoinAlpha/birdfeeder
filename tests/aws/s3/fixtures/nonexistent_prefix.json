@@ -1,0 +1,25 @@
+[
+    {
+        "ResponseMetadata": {
+            "RequestId": "BT8S6V5R4P7W8VFG",
+            "HostId": "+Cov+RiWgXqChZ8L5dLs/pPPXjiEPhVNcKMz7yta9lPah7teOkg58+u8fhArVOWlOqnTBxhmSro=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "+Cov+RiWgXqChZ8L5dLs/pPPXjiEPhVNcKMz7yta9lPah7teOkg58+u8fhArVOWlOqnTBxhmSro=",
+                "x-amz-request-id": "BT8S6V5R4P7W8VFG",
+                "date": "Wed, 17 Feb 2021 11:01:50 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": false,
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "nonexistent",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 0
+    }
+]

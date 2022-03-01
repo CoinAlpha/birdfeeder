@@ -1,0 +1,29 @@
+{
+    "ResponseMetadata": {
+        "RequestId": "SRZSJX3WGJ9QAGSX",
+        "HostId": "tbfE7MQ9OMAreOD/qyCIZAEeAruR9sH4T/AED91rfMjGnvNnHo0fjzhPIJJZD4BaFJ8vwZkaoUE=",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "x-amz-id-2": "tbfE7MQ9OMAreOD/qyCIZAEeAruR9sH4T/AED91rfMjGnvNnHo0fjzhPIJJZD4BaFJ8vwZkaoUE=",
+            "x-amz-request-id": "SRZSJX3WGJ9QAGSX",
+            "date": "Mon, 12 Apr 2021 19:01:13 GMT",
+            "last-modified": "Thu, 17 Sep 2020 18:45:29 GMT",
+            "etag": "\"da10054419e0297f57433316a0610b88-36\"",
+            "x-amz-version-id": "null",
+            "accept-ranges": "bytes",
+            "content-type": "binary/octet-stream",
+            "content-length": "300007424",
+            "server": "AmazonS3"
+        },
+        "RetryAttempts": 0
+    },
+    "AcceptRanges": "bytes",
+    "LastModified": {
+        "type(datetime)": "2020-09-17T18:45:29+00:00"
+    },
+    "ContentLength": 300007424,
+    "ETag": "\"da10054419e0297f57433316a0610b88-36\"",
+    "VersionId": "null",
+    "ContentType": "binary/octet-stream",
+    "Metadata": {}
+}

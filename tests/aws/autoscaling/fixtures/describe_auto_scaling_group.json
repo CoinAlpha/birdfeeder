@@ -1,0 +1,78 @@
+{
+    "AutoScalingGroups": [
+        {
+            "AutoScalingGroupName": "ascendex-proxies",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:us-west-2:097491806382:autoScalingGroup:521a4ab1-bc8f-4a6f-b8ce-1ddfeefd07cd:autoScalingGroupName/ascendex-proxies",
+            "LaunchTemplate": {
+                "LaunchTemplateId": "lt-0640717f1526ca60a",
+                "LaunchTemplateName": "nginx-forward-proxy-20210513092608442900000001",
+                "Version": "$Latest"
+            },
+            "MinSize": 2,
+            "MaxSize": 2,
+            "DesiredCapacity": 2,
+            "DefaultCooldown": 300,
+            "AvailabilityZones": [
+                "us-west-2a",
+                "us-west-2b",
+                "us-west-2c"
+            ],
+            "LoadBalancerNames": [],
+            "TargetGroupARNs": [],
+            "HealthCheckType": "EC2",
+            "HealthCheckGracePeriod": 300,
+            "Instances": [
+                {
+                    "InstanceId": "i-00b0e941cdce5fd26",
+                    "InstanceType": "t2.nano",
+                    "AvailabilityZone": "us-west-2a",
+                    "LifecycleState": "InService",
+                    "HealthStatus": "Healthy",
+                    "LaunchTemplate": {
+                        "LaunchTemplateId": "lt-0640717f1526ca60a",
+                        "LaunchTemplateName": "nginx-forward-proxy-20210513092608442900000001",
+                        "Version": "1"
+                    },
+                    "ProtectedFromScaleIn": false
+                },
+                {
+                    "InstanceId": "i-0e96706f583c9ffe7",
+                    "InstanceType": "t2.nano",
+                    "AvailabilityZone": "us-west-2c",
+                    "LifecycleState": "InService",
+                    "HealthStatus": "Healthy",
+                    "LaunchTemplate": {
+                        "LaunchTemplateId": "lt-0640717f1526ca60a",
+                        "LaunchTemplateName": "nginx-forward-proxy-20210513092608442900000001",
+                        "Version": "1"
+                    },
+                    "ProtectedFromScaleIn": false
+                }
+            ],
+            "CreatedTime": {
+                "type(datetime)": "2021-05-13T09:26:18.130000+00:00"
+            },
+            "SuspendedProcesses": [],
+            "VPCZoneIdentifier": "subnet-0fbd5c27efa71242a,subnet-0d3b52d5a7f0c2c50,subnet-0471d3b27c7b58593",
+            "EnabledMetrics": [],
+            "Tags": [],
+            "TerminationPolicies": [
+                "Default"
+            ],
+            "NewInstancesProtectedFromScaleIn": false,
+            "ServiceLinkedRoleARN": "arn:aws:iam::097491806382:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling"
+        }
+    ],
+    "ResponseMetadata": {
+        "RequestId": "1997b807-9d0f-424d-bd09-df9f8530552a",
+        "HTTPStatusCode": 200,
+        "HTTPHeaders": {
+            "x-amzn-requestid": "1997b807-9d0f-424d-bd09-df9f8530552a",
+            "content-type": "text/xml",
+            "content-length": "3295",
+            "vary": "accept-encoding",
+            "date": "Wed, 19 May 2021 08:12:38 GMT"
+        },
+        "RetryAttempts": 0
+    }
+}
