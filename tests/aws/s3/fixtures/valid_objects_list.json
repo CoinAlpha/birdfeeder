@@ -1,0 +1,226 @@
+[
+    {
+        "ResponseMetadata": {
+            "RequestId": "A39595D43D76BE0F",
+            "HostId": "RXtkJdafqrJ47uiAW/1ZfXzAFscwgY1KU6HkVNvmFlAJGw7w6lnKDBbZti+eQ9T+LD2drRFUZt4=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "RXtkJdafqrJ47uiAW/1ZfXzAFscwgY1KU6HkVNvmFlAJGw7w6lnKDBbZti+eQ9T+LD2drRFUZt4=",
+                "x-amz-request-id": "A39595D43D76BE0F",
+                "date": "Wed, 17 Feb 2021 11:01:49 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": true,
+        "Contents": [
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-03T00:00:00+00:00__2020-03-04T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T17:16:59+00:00"
+                },
+                "ETag": "\"7a02eecb32b63dd48f95cbb5bbf39dbc-31\"",
+                "Size": 255361024,
+                "StorageClass": "STANDARD"
+            },
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-04T00:00:00+00:00__2020-03-05T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:00:19+00:00"
+                },
+                "ETag": "\"dddab5815d86f92869d68985abeea848-36\"",
+                "Size": 297148416,
+                "StorageClass": "STANDARD"
+            }
+        ],
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 2,
+        "NextContinuationToken": "1UOFGUAId3QA+2xfwlguwjJVyn8e3yK7EfZCnffpgETpHnpH7NhPvfvspO0I//XGXCvV0h0oHnuCwpdx0tctzLqw9fv+tgFKDZ9IxtYywh7u1H0WAUgX+SZV+MJ+goDbZJ4EKAviux6IfZeKn6EU7Wa1JxKrqad0kwJ3jxXHtBnrn0gfdxlrCGw=="
+    },
+    {
+        "ResponseMetadata": {
+            "RequestId": "969E13069B302003",
+            "HostId": "67W5exxp7MDhTazWDgYMUni4oR0vnGuhYNBh53p75Ze2smiytmKz0a2+Cd/Zcs7n/yOqXLf91pY=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "67W5exxp7MDhTazWDgYMUni4oR0vnGuhYNBh53p75Ze2smiytmKz0a2+Cd/Zcs7n/yOqXLf91pY=",
+                "x-amz-request-id": "969E13069B302003",
+                "date": "Wed, 17 Feb 2021 11:01:49 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": true,
+        "Contents": [
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-05T00:00:00+00:00__2020-03-06T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:05:16+00:00"
+                },
+                "ETag": "\"e86a0697229f57e2dd61798522f439cd-47\"",
+                "Size": 391806976,
+                "StorageClass": "STANDARD"
+            },
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-06T00:00:00+00:00__2020-03-07T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:10:33+00:00"
+                },
+                "ETag": "\"ca627b056735f56969c5b67a636b08ee-51\"",
+                "Size": 419434496,
+                "StorageClass": "STANDARD"
+            }
+        ],
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 2,
+        "ContinuationToken": "1UOFGUAId3QA+2xfwlguwjJVyn8e3yK7EfZCnffpgETpHnpH7NhPvfvspO0I//XGXCvV0h0oHnuCwpdx0tctzLqw9fv+tgFKDZ9IxtYywh7u1H0WAUgX+SZV+MJ+goDbZJ4EKAviux6IfZeKn6EU7Wa1JxKrqad0kwJ3jxXHtBnrn0gfdxlrCGw==",
+        "NextContinuationToken": "1sttrz8/mwFGlVVbIt+IMiIWV2CzbsKhT+I6zlu/HKJ5ZUk0QTGmhLEoSDgBAmaCw8b9EAd9zsoJb5vL+AYapc5IDsYSPlwVXD+XCjBXMEYvsnBFetLCaD95MUEXc7EOt+MnM6Q9/ogVxwDaEWMMNrg13hEpsFDBkQtm4Hbxux5eyBFZHhsLWVw=="
+    },
+    {
+        "ResponseMetadata": {
+            "RequestId": "C714902F9296480F",
+            "HostId": "08Tx/161H3Hec/E4kMzRFlIHvx1TmRleZKc5WTmnln5mZcuZUyyktZ03PJ8Ywdkn8hsknyICqZo=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "08Tx/161H3Hec/E4kMzRFlIHvx1TmRleZKc5WTmnln5mZcuZUyyktZ03PJ8Ywdkn8hsknyICqZo=",
+                "x-amz-request-id": "C714902F9296480F",
+                "date": "Wed, 17 Feb 2021 11:01:49 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": true,
+        "Contents": [
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-07T00:00:00+00:00__2020-03-08T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:16:47+00:00"
+                },
+                "ETag": "\"b461dcdf630c274882155f1bb0a8304a-59\"",
+                "Size": 490688512,
+                "StorageClass": "STANDARD"
+            },
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-08T00:00:00+00:00__2020-03-09T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:23:13+00:00"
+                },
+                "ETag": "\"a1fd48aabb70479b518739f96a00a033-59\"",
+                "Size": 493240320,
+                "StorageClass": "STANDARD"
+            }
+        ],
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 2,
+        "ContinuationToken": "1sttrz8/mwFGlVVbIt+IMiIWV2CzbsKhT+I6zlu/HKJ5ZUk0QTGmhLEoSDgBAmaCw8b9EAd9zsoJb5vL+AYapc5IDsYSPlwVXD+XCjBXMEYvsnBFetLCaD95MUEXc7EOt+MnM6Q9/ogVxwDaEWMMNrg13hEpsFDBkQtm4Hbxux5eyBFZHhsLWVw==",
+        "NextContinuationToken": "1Xyio/kXDVy6C8Owq8hc0wQ+Qe6gjT3+YBQIQ7h1JYAYP48FHpJUCO0/bTFDnyhQkFXyHnyKqmVoHTtuKyIJ9j4eqkN9vD9ryXFLrwazmSnsyBEFBlYSv9u/Lc21SaTJrmuFobZ9CtPg21nAy0x6I9o2WamVNU+iya1h8kNIaQQ4JIxl42pLC4w=="
+    },
+    {
+        "ResponseMetadata": {
+            "RequestId": "9B2B2546065A0254",
+            "HostId": "dj7yt3Sw0BtGvoXBhvHlbUrOhPlrE85H0XWa1N0sOQy7lh5fu+PprAr6ZGgF2Y2lO+rvMtIdMkQ=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "dj7yt3Sw0BtGvoXBhvHlbUrOhPlrE85H0XWa1N0sOQy7lh5fu+PprAr6ZGgF2Y2lO+rvMtIdMkQ=",
+                "x-amz-request-id": "9B2B2546065A0254",
+                "date": "Wed, 17 Feb 2021 11:01:50 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": true,
+        "Contents": [
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-09T00:00:00+00:00__2020-03-10T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:29:38+00:00"
+                },
+                "ETag": "\"1eb450d3658d5bf06eb3c72595bc0152-53\"",
+                "Size": 436584448,
+                "StorageClass": "STANDARD"
+            },
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-10T00:00:00+00:00__2020-03-11T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:35:29+00:00"
+                },
+                "ETag": "\"862c281f533863f46c4f4ec3b01b254b-50\"",
+                "Size": 417959936,
+                "StorageClass": "STANDARD"
+            }
+        ],
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 2,
+        "ContinuationToken": "1Xyio/kXDVy6C8Owq8hc0wQ+Qe6gjT3+YBQIQ7h1JYAYP48FHpJUCO0/bTFDnyhQkFXyHnyKqmVoHTtuKyIJ9j4eqkN9vD9ryXFLrwazmSnsyBEFBlYSv9u/Lc21SaTJrmuFobZ9CtPg21nAy0x6I9o2WamVNU+iya1h8kNIaQQ4JIxl42pLC4w==",
+        "NextContinuationToken": "1ZZRkw1YIIKWPZnJ5vEXsaMwExU9AD12EF0QF4XIfPNuNS1q3wUvvh0AQUJLUxBBaFz1gbbhLT0hHLgZXFZvoCjZHzY4+3LdsFXol5Uk6hzUIBOAAqAqj7Dw4LmF2FM+7L/dOmtcjho0KNFWC6F2wJThpcVEKPERhzEC707sql5ghrLvNHpBxvA=="
+    },
+    {
+        "ResponseMetadata": {
+            "RequestId": "AX3QBP4M8P2P0W9G",
+            "HostId": "NP1Fpbu+oDVJUBM+2Hlj+yX/3XBWFs+QKXQfjubqdOVKJ3JcXWgtKRM3OC2FgxYXayyM+9PAdb4=",
+            "HTTPStatusCode": 200,
+            "HTTPHeaders": {
+                "x-amz-id-2": "NP1Fpbu+oDVJUBM+2Hlj+yX/3XBWFs+QKXQfjubqdOVKJ3JcXWgtKRM3OC2FgxYXayyM+9PAdb4=",
+                "x-amz-request-id": "AX3QBP4M8P2P0W9G",
+                "date": "Wed, 17 Feb 2021 11:01:50 GMT",
+                "x-amz-bucket-region": "us-west-2",
+                "content-type": "application/xml",
+                "transfer-encoding": "chunked",
+                "server": "AmazonS3"
+            },
+            "RetryAttempts": 0
+        },
+        "IsTruncated": true,
+        "Contents": [
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-11T00:00:00+00:00__2020-03-12T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:40:50+00:00"
+                },
+                "ETag": "\"787306e009bf324f0de895539cc2db37-48\"",
+                "Size": 396660736,
+                "StorageClass": "STANDARD"
+            },
+            {
+                "Key": "parrot/Production/BinanceUserOrderModel/2020-03-12T00:00:00+00:00__2020-03-13T00:00:00+00:00.sqlite",
+                "LastModified": {
+                    "type(datetime)": "2020-09-17T18:45:29+00:00"
+                },
+                "ETag": "\"da10054419e0297f57433316a0610b88-36\"",
+                "Size": 300007424,
+                "StorageClass": "STANDARD"
+            }
+        ],
+        "Name": "hummingbot-mysql-archive",
+        "Prefix": "",
+        "MaxKeys": 2,
+        "EncodingType": "url",
+        "KeyCount": 2,
+        "ContinuationToken": "1ZZRkw1YIIKWPZnJ5vEXsaMwExU9AD12EF0QF4XIfPNuNS1q3wUvvh0AQUJLUxBBaFz1gbbhLT0hHLgZXFZvoCjZHzY4+3LdsFXol5Uk6hzUIBOAAqAqj7Dw4LmF2FM+7L/dOmtcjho0KNFWC6F2wJThpcVEKPERhzEC707sql5ghrLvNHpBxvA==",
+        "NextContinuationToken": "1BNZL90IJclS+catwa0rTl2Zsm/1PPlT4A7pkpFdZaw6sHAmphXmAf2i6I1JS1nRYwnrVqjZGMXgsePDcQ/cvMjJQCeYB2N6A29EL4yFLxZcHRRX8JbVrFwP8cqYF/mefXW0I2Sxu+qcXFnmGBdhqEdXvLOGx8QMGNfU2T3KchPWFOWq0c+IHIA=="
+    }
+]

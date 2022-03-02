@@ -1,9 +1,39 @@
+import json
 from datetime import datetime
 from decimal import Decimal
 from enum import Enum
-from typing import Any, Dict
+from typing import Any, Dict, NamedTuple, Set, Tuple
 
 import pandas as pd
+
+
+class JSONTemplateField(NamedTuple):
+    value_key: str  # original key for the value form the exchange message
+    encode_type: type  # value type presented in the json data
+    value_type: type  # actual value type
+    value_name: str  # name of the ExchangeDataFields or name that describe the key if it's not a standardized key
+
+    @property
+    def default_value(self):
+        return self.encode_type(self.value_type())
+
+
+class JSONTemplate:
+    def __init__(self, template_field_tuples: Set[Tuple[str, type, type, str]]):
+        self._fields: Set[JSONTemplateField] = {JSONTemplateField(*field) for field in template_field_tuples}
+        self._name_key_map: Dict[str, Any] = {f.value_name: f.value_key for f in self._fields}
+
+    @property
+    def name_key_map(self):
+        return self._name_key_map
+
+    @property
+    def default_dict(self) -> Dict[str, Any]:
+        return self.get_default_template_dict(self._fields)
+
+    @classmethod
+    def get_default_template_dict(cls, template_fields: Set[JSONTemplateField]) -> Dict[str, Any]:
+        return {str(f.value_key): f.default_value for f in template_fields}
 
 
 def to_valid_json_dict(dictionary: Any, decimal_to_str: bool = False, enum_to_name: bool = True) -> Any:
@@ -67,3 +97,22 @@ def json_decode_hook(obj: Any) -> Any:
     elif 'type(datetime)' in obj:
         return datetime.fromisoformat(obj['type(datetime)'])
     return obj
+
+
+def dump_to_file_as_json(obj: Any, path: str) -> None:
+    """
+    Dump python object to a file in JSON.
+
+    Objects that are non JSON-serializable are written as a plain string.
+
+    :param obj: python object
+    :param path: output file path
+    """
+    with open(path, "w") as fd:
+        json.dump(obj, fd, indent=4, default=json_encode_default)
+
+
+def load_json_from_file(path: str) -> Any:
+    """Load a JSON object from a file."""
+    with open(path, "r") as fd:
+        return json.load(fd, object_hook=json_decode_hook)
