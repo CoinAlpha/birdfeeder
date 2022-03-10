@@ -1,3 +1,4 @@
+import math
 import statistics
 from decimal import Decimal
 from typing import Iterable, Sequence, Union, overload
@@ -22,3 +23,8 @@ def safe_mean(values: Union[Iterable, Sequence]) -> Union[int, float, Decimal]:
         return statistics.mean(values)
     except statistics.StatisticsError:
         return 0.0
+
+
+def round_up(number: float, decimals: int = 0) -> float:
+    multiplier = 10 ** decimals
+    return math.ceil(number * multiplier) / multiplier
