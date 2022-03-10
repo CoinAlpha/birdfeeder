@@ -25,6 +25,6 @@ def safe_mean(values: Union[Iterable, Sequence]) -> Union[int, float, Decimal]:
         return 0.0
 
 
-def round_up(number, decimals: int = 0) -> float:
+def round_up(number: float, decimals: int = 0) -> float:
     multiplier = 10 ** decimals
     return math.ceil(number * multiplier) / multiplier
