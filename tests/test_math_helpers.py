@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from birdfeeder.math_helpers import safe_div, safe_mean, round_up
+from birdfeeder.math_helpers import round_up, safe_div, safe_mean
 
 
 def test_safe_div_basic():
