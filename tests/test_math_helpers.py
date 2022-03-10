@@ -25,3 +25,11 @@ def test_safe_mean_empty():
 
 def test_safe_mean_zero_values():
     assert safe_mean([0, 0]) == 0.0
+
+
+def test_round_up_basic():
+    assert round_up(1.234, 2) == 1.24
+
+
+def test_round_up_zero():
+    assert round_up(0, 2) == 0.0
