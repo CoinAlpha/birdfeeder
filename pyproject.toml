@@ -65,6 +65,11 @@ pytest-mock = "^3.1.0"
 pytest-asyncio = "^0.14"
 pytest-aiohttp = "*"
 docker = "^4"
+SQLAlchemy = "^1.4"
+SQLAlchemy-Utils = "^0.37"
+redis = "^3.5"
+PyMySQL = "^1.0.2"
+mysqlclient = "^2.1.0"
 
 [tool.poetry.scripts]
 build_image = 'birdfeeder.build_image:app'
