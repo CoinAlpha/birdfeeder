@@ -5,7 +5,7 @@ import socket
 import time
 import uuid
 from contextlib import contextmanager
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import Any, Callable, ContextManager, Generator, NamedTuple
 
 import docker
@@ -222,9 +222,20 @@ def get_new_db() -> Callable[[docker.models.containers.Container, str], ContextM
 
 
 @pytest.fixture(scope="class")
-def redis_cluster(session_id, unused_port, docker_manager):
+def redis_sentinel_config_template_path():
+    """
+    Provides python-style template for redis sentinel config, as a path.
 
+    Override this fixture in your project
+    """
     here = Path(__file__).parent
+    path = PurePath(here).joinpath("..", "tests", "sample_configs", "redis_sentinel_config")
+    return path
+
+
+@pytest.fixture(scope="class")
+def redis_cluster(session_id, unused_port, docker_manager, redis_sentinel_config_template_path):
+
     volume = f"/tmp/redis_config_{session_id}"
     Path(volume).mkdir(exist_ok=True)
 
@@ -239,10 +250,10 @@ def redis_cluster(session_id, unused_port, docker_manager):
     sentinel_host = f"redis-sentinel-{session_id}"
     sentinel_port = unused_port()
 
-    with open(here / "conf" / "redis_sentinel_config") as f:
-        conf = f.read().format(**vars())
-        with open(Path(volume) / "sentinel", "w") as f:
-            f.write(conf)
+    with open(redis_sentinel_config_template_path) as fd:
+        rendered_config = fd.read().format(**vars())
+        with open(Path(volume) / "sentinel", "w") as target:
+            target.write(rendered_config)
 
     master = docker_manager.containers.run(
         image="redis:6.2.6",
