@@ -69,7 +69,7 @@ SQLAlchemy = "^1.4"
 SQLAlchemy-Utils = "^0.37"
 redis = "^3.5"
 PyMySQL = "^1.0.2"
-mysqlclient = "^2.1.0"
+mysqlclient = "^2"
 
 [tool.poetry.scripts]
 build_image = 'birdfeeder.build_image:app'
