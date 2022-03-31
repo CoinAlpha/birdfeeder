@@ -56,11 +56,11 @@ def test_format_timestamp_input_ns_int():
     ts = time.time_ns()
 
     result = format_timestamp(ts, "ms")
-    expected = int(ts * 10 ** -6)
+    expected = int(ts * 10**-6)
     assert result == expected
 
     result = format_timestamp(ts, "s")
-    expected = int(ts * 10 ** -9)
+    expected = int(ts * 10**-9)
     assert result == expected
 
 
