@@ -42,7 +42,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.8"
 "ruamel.yaml" = "^0.16"
 python-json-logger = "^2"
 environs = "^9"
