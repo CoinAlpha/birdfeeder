@@ -1,0 +1,9 @@
+port {sentinel_port}
+dir /tmp
+sentinel monitor mymaster localhost {master_port} 2
+sentinel down-after-milliseconds mymaster 15000
+sentinel parallel-syncs mymaster 1
+sentinel failover-timeout mymaster 15000
+sentinel resolve-hostnames yes
+sentinel announce-hostnames yes
+bind 0.0.0.0

@@ -42,7 +42,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.8"
 "ruamel.yaml" = "^0.16"
 python-json-logger = "^2"
 environs = "^9"
@@ -65,6 +65,11 @@ pytest-mock = "^3.1.0"
 pytest-asyncio = "^0.14"
 pytest-aiohttp = "*"
 docker = "^4"
+SQLAlchemy = "^1.4"
+SQLAlchemy-Utils = "^0.37"
+redis = "^3.5"
+PyMySQL = "^1.0.2"
+mysqlclient = "^2"
 
 [tool.poetry.scripts]
 build_image = 'birdfeeder.build_image:app'

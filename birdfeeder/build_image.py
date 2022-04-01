@@ -55,7 +55,7 @@ def main(
     image: Optional[str] = typer.Argument(None),  # noqa: B008
     push: bool = typer.Option(False, is_flag=True, help="Push the new image to Docker Hub."),  # noqa: B008
     tag: str = typer.Option(  # noqa: B008
-        get_default_image_tag(),
+        get_default_image_tag(),  # noqa: B008
         help="Specify a tag to be used, instead of the default one. "
         "Default is to construct a tag using current git revision (short).",
     ),
