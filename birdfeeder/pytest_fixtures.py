@@ -229,7 +229,7 @@ def redis_sentinel_config_template_path():
     Override this fixture in your project
     """
     here = Path(__file__).parent
-    path = PurePath(here).joinpath("..", "tests", "sample_configs", "redis_sentinel_config")
+    path = PurePath(here).joinpath(".", "sample_configs", "redis_sentinel_config")
     return path
 
 
