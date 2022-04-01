@@ -1,3 +1,7 @@
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"
+
 # Default section.
 # Convert dephell metainfo and dependencies from poetry to setup.py:
 # $ dephell deps convert
