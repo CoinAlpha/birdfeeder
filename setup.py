@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='birdfeeder',
-    version='1.0.1',
+    version='1.0.2',
     description='Helper library for CoinAlpha projects',
     python_requires='==3.*,>=3.8.0',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
@@ -49,7 +49,7 @@ setup(
         'pydantic==1.*,>=1.9.0',
         'python-json-logger==2.*,>=2.0.0',
         'ruamel.yaml==0.*,>=0.16.0',
-        'typer==0.*,>=0.3.0',
+        'typer>=0.3',
     ],
     extras_require={
         "dev": [
