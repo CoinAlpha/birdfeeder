@@ -60,7 +60,7 @@ Releasing a new version
 Idea: we're keeping own version and dependencies info in ``pyproject.toml``\ , and then generating ``setup.py`` so that the library could be installed via tools like pip. We're also generating ``environment.yml`` file because we're mostly using conda to manage development environments at CoinAlpha.
 
 
-#. Change version in ``pyproject.toml``
+#. Change version in ``pyproject.toml`` and ``birdfeeder/__init__.py``
 #. Generate ``setup.py``\ : ``dephell deps convert``
 #. Generate ``environment.yml``\ : ``poetry2conda --dev pyproject.toml environment.yml``
 #. Commit updates ``git add -u && git commit``

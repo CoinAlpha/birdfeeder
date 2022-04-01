@@ -21,9 +21,9 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='birdfeeder',
-    version='0.12.1',
+    version='1.0.0',
     description='Helper library for CoinAlpha projects',
-    python_requires='==3.*,>=3.6.1',
+    python_requires='==3.*,>=3.8.0',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
     author='Vladimir Kamarzin',
     author_email='vvk@vvk.pp.ru',
@@ -54,13 +54,18 @@ setup(
     extras_require={
         "dev": [
             "docker==4.*,>=4.0.0",
+            "mysqlclient==2.*,>=2.0.0",
             "poetry2conda==0.*,>=0.3.0",
             "pre-commit==2.*,>=2.2.0",
+            "pymysql==1.*,>=1.0.2",
             "pytest==6.*,>=6.0.0",
             "pytest-aiohttp",
             "pytest-asyncio==0.*,>=0.14.0",
             "pytest-cov==2.*,>=2.7.0",
             "pytest-mock==3.*,>=3.1.0",
+            "redis==3.*,>=3.5.0",
+            "sqlalchemy==1.*,>=1.4.0",
+            "sqlalchemy-utils==0.*,>=0.37.0",
         ]
     },
 )
