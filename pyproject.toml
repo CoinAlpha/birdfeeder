@@ -40,6 +40,8 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+include = ["birdfeeder/sample_configs/redis_sentinel_config"]
+
 [tool.poetry.dependencies]
 python = "^3.8"
 "ruamel.yaml" = "^0.16"
