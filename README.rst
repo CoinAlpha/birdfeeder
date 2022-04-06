@@ -7,15 +7,29 @@ Helper library for CoinAlpha projects
 Usage
 -----
 
-The library is not (yet?) published to pypi.
+The library is published to pypi as `birdfeeder-coinalpha <https://pypi.org/project/birdfeeder-coinalpha/>`_
+
+Installing
+^^^^^^^^^^
+
+.. code-block::
+
+   pip install birdfeeder-coinalpha
+
+.. code-block::
+
+   poetry add 'birdfeeder-coinalpha@^1'
+
+How to install old versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In pyproject.toml:
 
 .. code-block::
 
-   birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", branch = "master" }
-   birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", rev = "29cdd7229d0d35a989322f5026382400d1332da4" }
-   birdfeeder = { git = "https://github.com/coinalpha/birdfeeder.git", tag = "0.1.0" }
+   birdfeeder-coinalpha = { git = "https://github.com/coinalpha/birdfeeder.git", branch = "master" }
+   birdfeeder-coinalpha = { git = "https://github.com/coinalpha/birdfeeder.git", rev = "29cdd7229d0d35a989322f5026382400d1332da4" }
+   birdfeeder-coinalpha = { git = "https://github.com/coinalpha/birdfeeder.git", tag = "0.1.0" }
 
 pip:
 
@@ -34,7 +48,7 @@ To install library for development in conda environment, run
 
    ./install
 
-Alternativelly, you can use poetry env:
+Alternativelly (preferred), you can use poetry env:
 
 .. code-block::
 
@@ -66,3 +80,4 @@ Idea: we're keeping own version and dependencies info in ``pyproject.toml``\ , a
 #. Commit updates ``git add -u && git commit``
 #. Create git tag ``x.y.z``\ : ``git tag x.y.z``
 #. Run ``git push && git push --tags``
+#. Publish to pypi: ``poetry publish --build``
