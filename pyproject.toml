@@ -44,6 +44,9 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+packages = [
+    { include = "birdfeeder" }
+]
 include = ["birdfeeder/sample_configs/redis_sentinel_config"]
 
 [tool.poetry.dependencies]
