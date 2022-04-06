@@ -58,3 +58,4 @@ Idea: we're keeping own version and dependencies info in `pyproject.toml`, and t
 1. Commit updates `git add -u && git commit`
 1. Create git tag `x.y.z`: `git tag x.y.z`
 1. Run `git push && git push --tags`
+1. Publish to pypi: `poetry publish --build`
