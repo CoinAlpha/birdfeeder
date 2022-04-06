@@ -27,7 +27,7 @@ versioning = "semver"
 
 
 [tool.poetry]
-name = "birdfeeder"
+name = "birdfeeder-coinalpha"
 version = "1.0.2"
 description = "Helper library for CoinAlpha projects"
 license = "MIT"
