@@ -27,8 +27,8 @@ versioning = "semver"
 
 
 [tool.poetry]
-name = "birdfeeder"
-version = "1.0.2"
+name = "birdfeeder-coinalpha"
+version = "1.0.3"
 description = "Helper library for CoinAlpha projects"
 license = "MIT"
 authors = ["Vladimir Kamarzin <vvk@vvk.pp.ru>"]
@@ -38,12 +38,15 @@ repository = "https://github.com/coinalpha/birdfeeder"
 keywords = []
 
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+packages = [
+    { include = "birdfeeder" }
+]
 include = ["birdfeeder/sample_configs/redis_sentinel_config"]
 
 [tool.poetry.dependencies]

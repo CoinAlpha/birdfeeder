@@ -20,8 +20,8 @@ if os.path.exists(readme_path):
 
 setup(
     long_description=readme,
-    name='birdfeeder',
-    version='1.0.2',
+    name='birdfeeder-coinalpha',
+    version='1.0.3',
     description='Helper library for CoinAlpha projects',
     python_requires='==3.*,>=3.8.0',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
@@ -29,7 +29,7 @@ setup(
     author_email='vvk@vvk.pp.ru',
     license='MIT',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Operating System :: OS Independent',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -37,7 +37,7 @@ setup(
     entry_points={"console_scripts": ["build_image = birdfeeder.build_image:app"]},
     packages=['birdfeeder', 'birdfeeder.aws', 'birdfeeder.enum', 'birdfeeder.pydantic'],
     package_dir={"": "."},
-    package_data={},
+    package_data={"birdfeeder": ["*.swp"]},
     install_requires=[
         'aiohttp==3.*,>=3.2.0',
         'aiorun==2020.*,>=2020.0.0',
