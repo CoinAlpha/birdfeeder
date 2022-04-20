@@ -21,6 +21,10 @@ def test_get_new_db(get_new_db, mysql, session_id):
         assert db_url is not None
 
 
+def test_empty_db(empty_db):
+    assert empty_db is not None
+
+
 def test_redis_cluster(redis_cluster):
     host, port = redis_cluster
     assert host is not None

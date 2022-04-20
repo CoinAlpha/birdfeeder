@@ -6,7 +6,7 @@ import time
 import uuid
 from contextlib import contextmanager
 from pathlib import Path, PurePath
-from typing import Any, Callable, ContextManager, Generator, NamedTuple
+from typing import Any, Callable, ContextManager, Generator, NamedTuple, Union
 
 import docker
 import pytest
@@ -177,7 +177,7 @@ def mysql(session_id, unused_port, docker_manager):
         container.remove(v=True, force=True)
 
 
-def wait_db(url: str, retries: int = 60) -> None:
+def wait_db(url: Union[str, URL], retries: int = 60) -> None:
     """Waits for server readiness."""
     while retries:
         try:
@@ -306,3 +306,10 @@ def redis_cluster(session_id, unused_port, docker_manager, redis_sentinel_config
         network.remove()
 
         shutil.rmtree(volume)
+
+
+@pytest.fixture()
+def empty_db(mysql, session_id, get_new_db):
+    """Provides empty database without any tables created."""
+    with get_new_db(mysql, session_id) as db_url:
+        yield db_url

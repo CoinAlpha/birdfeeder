@@ -71,9 +71,10 @@ repos:
   rev: v0.942
   hooks:
     - id: mypy
-      args: [--ignore-missing-imports, --check-untyped-defs, --disallow-incomplete-defs]
+      args: [--config-file=mypy.cfg]
       additional_dependencies: [
         'types-cachetools',
         'types-pytz',
-        'types-redis'
+        'types-redis',
+        'sqlalchemy[mypy]'
       ]
