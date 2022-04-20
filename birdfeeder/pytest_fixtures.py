@@ -306,3 +306,10 @@ def redis_cluster(session_id, unused_port, docker_manager, redis_sentinel_config
         network.remove()
 
         shutil.rmtree(volume)
+
+
+@pytest.fixture()
+def empty_db(mysql, session_id, get_new_db):
+    """Provides empty database without any tables created."""
+    with get_new_db(mysql, session_id) as db_url:
+        yield db_url
