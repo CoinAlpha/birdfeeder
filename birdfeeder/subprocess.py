@@ -6,7 +6,7 @@ from typing import TextIO
 __all__ = ["ThreadedLogPipe"]
 
 
-class ThreadedLogPipe(TextIO, threading.Thread):  # type: ignore
+class ThreadedLogPipe(threading.Thread):
     """
     Enables a subprocess to send its stdout/stderr to a logger.
 
