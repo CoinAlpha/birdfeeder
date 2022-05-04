@@ -36,6 +36,7 @@ class ThreadedLogPipe(TextIO, threading.Thread):  # type: ignore
         self.level: int = level
         self.fd_read, self.fd_write = os.pipe()
         self.pipe_reader = os.fdopen(self.fd_read)
+        self.lines_written: int = 0
 
         super().__init__(
             name=f"{self.__class__.__name__} {logging.getLevelName(self.level)} to {self.logger!r}",
@@ -56,5 +57,6 @@ class ThreadedLogPipe(TextIO, threading.Thread):  # type: ignore
         """Reads all pipe input in separate thread and logs to configured logger."""
         for line in iter(self.pipe_reader.readline, ""):
             self.logger.log(self.level, line.strip("\n"))
+            self.lines_written += 1
 
         self.pipe_reader.close()
