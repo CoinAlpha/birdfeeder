@@ -18,27 +18,27 @@ class MergedNamespace(MutableMappingABC):
         self._mappings: List[MutableMapping] = list(mappings)
         self._local_namespace = {}
 
-    def __setitem__(self, k, v) -> None:
-        self._local_namespace[k] = v
+    def __setitem__(self, key, value) -> None:
+        self._local_namespace[key] = value
 
-    def __delitem__(self, v) -> None:
-        for m in [self._local_namespace] + self._mappings:
-            if v in m:
-                del m[v]
+    def __delitem__(self, value) -> None:
+        for mapping in [self._local_namespace] + self._mappings:
+            if value in mapping:
+                del mapping[value]
 
-    def __getitem__(self, k):
-        for m in [self._local_namespace] + self._mappings:
-            if k in m:
-                return m[k]
-        raise KeyError(k)
+    def __getitem__(self, key):
+        for mapping in [self._local_namespace] + self._mappings:
+            if key in mapping:
+                return mapping[key]
+        raise KeyError(key)
 
     def __len__(self) -> int:
         return sum(len(m) for m in [self._local_namespace] + self._mappings)
 
     def __iter__(self) -> Iterator[any]:  # type: ignore
         for mapping in [self._local_namespace] + self._mappings:
-            for k in mapping:
-                yield k
+            for key in mapping:
+                yield key
 
     def __repr__(self) -> str:
         dict_repr: Dict[str, any] = dict(self.items())  # type: ignore
@@ -50,11 +50,11 @@ def add_diagnosis_tools(local_vars: MutableMapping):
 
 
 def detect_available_port(starting_port: int) -> int:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         current_port: int = starting_port
         while current_port < 65535:
             try:
-                s.bind(("127.0.0.1", current_port))
+                sock.bind(("127.0.0.1", current_port))
                 break
             except OSError as e:
                 if e.errno == errno.EADDRINUSE:

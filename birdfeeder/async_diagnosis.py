@@ -18,11 +18,11 @@ def get_coro_name(coro: Union[Coroutine, Generator]) -> str:
     return f'{coro_name}()'
 
 
-def get_wrapped_coroutine(t: asyncio.Task) -> Union[Coroutine, Generator]:
-    if "safe_wrapper" in str(t):
-        return t.get_coro().cr_frame.f_locals["c"]
+def get_wrapped_coroutine(task: asyncio.Task) -> Union[Coroutine, Generator]:
+    if "safe_wrapper" in str(task):
+        return task.get_coro().cr_frame.f_locals["c"]
     else:
-        return t.get_coro()
+        return task.get_coro()
 
 
 def active_tasks() -> pd.DataFrame:
