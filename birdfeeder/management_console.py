@@ -64,7 +64,7 @@ def detect_available_port(starting_port: int) -> int:
 
 
 async def start_management_console(
-    local_vars: MutableMapping, host: str = "localhost", port: int = 16119, banner: str = "Parrot"
+    local_vars: MutableMapping, host: str = "localhost", port: int = 16119, banner: str = "Welcome to the machine"
 ) -> asyncio.base_events.Server:
     add_diagnosis_tools(local_vars)
     port = detect_available_port(port)
