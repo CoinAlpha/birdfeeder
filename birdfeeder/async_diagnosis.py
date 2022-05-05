@@ -26,7 +26,7 @@ def get_wrapped_coroutine(task: asyncio.Task) -> Union[Awaitable, Generator]:
 
 
 def active_tasks() -> pd.DataFrame:
-    tasks: List[asyncio.Task] = [t for t in asyncio.Task.all_tasks() if not t.done()]
+    tasks: List[asyncio.Task] = [t for t in asyncio.all_tasks() if not t.done()]
     coroutines = [get_wrapped_coroutine(t) for t in tasks]
     func_names: List[str] = [get_coro_name(c) for c in coroutines]
     retval: pd.DataFrame = pd.DataFrame(

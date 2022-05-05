@@ -3,7 +3,7 @@ import logging
 
 import pytest
 
-from birdfeeder.async_diagnosis import get_coro_name, get_wrapped_coroutine
+from birdfeeder.async_diagnosis import active_tasks, get_coro_name, get_wrapped_coroutine
 from birdfeeder.async_utils import safe_ensure_future
 
 logger = logging.getLogger(__name__)
@@ -50,3 +50,16 @@ def test_get_wrapped_coroutine_new_style():
     task = safe_ensure_future(ok_coroutine())
     wrapped = get_wrapped_coroutine(task)
     assert "coroutine object safe_ok_coroutine at" in str(wrapped)
+
+
+@pytest.mark.asyncio()
+async def test_active_tasks():
+    task = safe_ensure_future(ok_coroutine())
+    df = active_tasks()
+    # We have one task which we started, and second is a test task
+    assert len(df) == 2
+    # Just check that our coroutine in the dataframe
+    assert df.loc['safe_ok_coroutine()'].any()
+
+    # Await to prevent warnings
+    await task
