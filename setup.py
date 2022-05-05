@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='birdfeeder-coinalpha',
-    version='1.0.3',
+    version='1.1.0',
     description='Helper library for CoinAlpha projects',
     python_requires='==3.*,>=3.8.0',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
