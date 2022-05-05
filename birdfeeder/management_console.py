@@ -6,7 +6,7 @@ import json
 import logging
 import socket
 from collections.abc import MutableMapping as MutableMappingABC
-from typing import Any, Dict, Iterator, List, MutableMapping
+from typing import Any, Dict, Iterator, List, MutableMapping, Optional
 
 import aioconsole
 
@@ -66,7 +66,11 @@ def detect_available_port(starting_port: int) -> int:
 
 
 async def start_management_console(
-    local_vars: MutableMapping, host: str = "localhost", port: int = 16119, banner: str = "Welcome to the machine"
+    local_vars: MutableMapping,
+    host: str = "localhost",
+    port: int = 16119,
+    banner: str = "Welcome to the machine",
+    start_event: Optional[asyncio.Event] = None,
 ) -> asyncio.base_events.Server:
     add_diagnosis_tools(local_vars)
     port = detect_available_port(port)
@@ -78,4 +82,6 @@ async def start_management_console(
 
     retval = await aioconsole.start_interactive_server(host=host, port=port, banner=banner, factory=factory_method)
     logger.info(f"Started debug console at {host}:{port}.")
+    if start_event is not None:
+        start_event.set()
     return retval
