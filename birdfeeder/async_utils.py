@@ -48,10 +48,11 @@ def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:
     return sorted(callers)
 
 
-def safe_ensure_future(coro, *args, **kwargs):
+def safe_ensure_future(coro, old_naming_style=False, *args, **kwargs):
     """
     Run a coroutine in a wrapper, catching and logging unexpected exception.
 
+    :param old_naming_style: don't modify wrapped coroutine name if True
     :envvar: INSPECT_CALLERS: if true, show callers on failure
     """
     caller_names = ""
@@ -70,6 +71,9 @@ def safe_ensure_future(coro, *args, **kwargs):
             )
 
     wrapped_coro = safe_wrapper(coro)
+
+    if old_naming_style:
+        return asyncio.ensure_future(wrapped_coro, *args, **kwargs)
 
     if coro.__name__ and isinstance(coro.__name__, str) and coro.__name__.isidentifier():
         wrapped_coro.__qualname__ = f"safe_{coro.__qualname__}"
