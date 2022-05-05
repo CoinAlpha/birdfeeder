@@ -44,7 +44,11 @@ class MergedNamespace(MutableMappingABC):
 
     def __repr__(self) -> str:
         dict_repr: Dict[str, Any] = dict(self.items())
-        return f"{self.__class__.__name__}({json.dumps(dict_repr)})"
+        try:
+            return f"{self.__class__.__name__}({json.dumps(dict_repr)})"
+        # TypeError: Object of type function is not JSON serializable
+        except TypeError:
+            return f"{self.__class__.__name__}({dict_repr})"
 
 
 def add_diagnosis_tools(local_vars: MutableMapping) -> None:
