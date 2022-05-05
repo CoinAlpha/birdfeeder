@@ -35,10 +35,11 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     entry_points={"console_scripts": ["build_image = birdfeeder.build_image:app"]},
-    packages=['birdfeeder', 'birdfeeder.aws', 'birdfeeder.enum', 'birdfeeder.pydantic'],
+    packages=['birdfeeder', 'birdfeeder.aws', 'birdfeeder.enum', 'birdfeeder.pydantic', 'birdfeeder.sqlalchemy'],
     package_dir={"": "."},
-    package_data={"birdfeeder": ["*.swp"]},
+    package_data={},
     install_requires=[
+        'aioconsole>=0.1.16',
         'aiohttp==3.*,>=3.2.0',
         'aiorun==2020.*,>=2020.0.0',
         'boto3==1.*,>=1.0.0',

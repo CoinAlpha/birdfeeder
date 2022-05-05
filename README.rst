@@ -78,6 +78,6 @@ Idea: we're keeping own version and dependencies info in ``pyproject.toml``\ , a
 #. Generate ``setup.py``\ : ``dephell deps convert``
 #. Generate ``environment.yml``\ : ``poetry2conda --dev pyproject.toml environment.yml``
 #. Commit updates ``git add -u && git commit``
-#. Create git tag ``x.y.z``\ : ``git tag x.y.z``
+#. Create git tag ``x.y.z``\ : ``git tag -s x.y.z``
 #. Run ``git push && git push --tags``
 #. Publish to pypi: ``poetry publish --build``
