@@ -6,7 +6,7 @@ import json
 import logging
 import socket
 from collections.abc import MutableMapping as MutableMappingABC
-from typing import Dict, Iterator, List, MutableMapping
+from typing import Any, Dict, Iterator, List, MutableMapping
 
 import aioconsole
 
@@ -16,17 +16,17 @@ from birdfeeder.async_diagnosis import active_tasks
 class MergedNamespace(MutableMappingABC):
     def __init__(self, *mappings):
         self._mappings: List[MutableMapping] = list(mappings)
-        self._local_namespace = {}
+        self._local_namespace: MutableMapping[Any, Any] = {}
 
-    def __setitem__(self, key, value) -> None:
+    def __setitem__(self, key: Any, value: Any) -> None:
         self._local_namespace[key] = value
 
-    def __delitem__(self, value) -> None:
+    def __delitem__(self, value: Any) -> None:
         for mapping in [self._local_namespace] + self._mappings:
             if value in mapping:
                 del mapping[value]
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: Any) -> Any:
         for mapping in [self._local_namespace] + self._mappings:
             if key in mapping:
                 return mapping[key]
@@ -35,17 +35,17 @@ class MergedNamespace(MutableMappingABC):
     def __len__(self) -> int:
         return sum(len(m) for m in [self._local_namespace] + self._mappings)
 
-    def __iter__(self) -> Iterator[any]:  # type: ignore
+    def __iter__(self) -> Iterator[Any]:
         for mapping in [self._local_namespace] + self._mappings:
             for key in mapping:
                 yield key
 
     def __repr__(self) -> str:
-        dict_repr: Dict[str, any] = dict(self.items())  # type: ignore
+        dict_repr: Dict[str, Any] = dict(self.items())
         return f"{self.__class__.__name__}({json.dumps(dict_repr)})"
 
 
-def add_diagnosis_tools(local_vars: MutableMapping):
+def add_diagnosis_tools(local_vars: MutableMapping) -> None:
     local_vars["active_tasks"] = active_tasks
 
 
