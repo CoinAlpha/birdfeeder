@@ -1,4 +1,12 @@
 [[package]]
+name = "aioconsole"
+version = "0.4.1"
+description = "Asynchronous console and interfaces for asyncio"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "aiohttp"
 version = "3.8.1"
 description = "Async http client/server framework (asyncio)"
@@ -830,9 +838,12 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "609fcf141901beb24faf53b63ccf4e6f16bbf643f04e58ecf31643c1ed1c7315"
+content-hash = "cee8b915c0e3f1edad38ef280721dce466e72139ada66cece7f7f09a50b70ff2"
 
 [metadata.files]
+aioconsole = [
+    {file = "aioconsole-0.4.1.tar.gz", hash = "sha256:0c0acb66b4e72d6606c9fa14ac9eb001a222c37c885b8fbdf65f41824cfa855f"},
+]
 aiohttp = [
     {file = "aiohttp-3.8.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:1ed0b6477896559f17b9eaeb6d38e07f7f9ffe40b9f0f9627ae8b9926ae260a8"},
     {file = "aiohttp-3.8.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7dadf3c307b31e0e61689cbf9e06be7a867c563d5a63ce9dca578f956609abf8"},

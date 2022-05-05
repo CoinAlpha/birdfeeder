@@ -2,6 +2,7 @@ import asyncio
 import functools
 import inspect
 import logging
+import sys
 import time
 from typing import Any, List, Tuple, Union
 
@@ -48,10 +49,11 @@ def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:
     return sorted(callers)
 
 
-def safe_ensure_future(coro, *args, **kwargs):
+def safe_ensure_future(coro, old_naming_style=False, *args, **kwargs):
     """
     Run a coroutine in a wrapper, catching and logging unexpected exception.
 
+    :param old_naming_style: don't modify wrapped coroutine name if True
     :envvar: INSPECT_CALLERS: if true, show callers on failure
     """
     caller_names = ""
@@ -70,6 +72,9 @@ def safe_ensure_future(coro, *args, **kwargs):
             )
 
     wrapped_coro = safe_wrapper(coro)
+
+    if old_naming_style:
+        return asyncio.ensure_future(wrapped_coro, *args, **kwargs)
 
     if coro.__name__ and isinstance(coro.__name__, str) and coro.__name__.isidentifier():
         wrapped_coro.__qualname__ = f"safe_{coro.__qualname__}"
@@ -140,3 +145,25 @@ async def wait_til_next_tick(seconds: float = 1.0) -> None:
     """Wait until the end of quantized time interval."""
     delay = calc_delay_til_next_tick(seconds)
     await asyncio.sleep(delay)
+
+
+def task_callback(task: asyncio.Task) -> None:
+    """
+    Helper to terminate background asyncio task in test, on failure.
+
+    Usage:
+
+    .. code-block:: python
+
+        task = asyncio.create_task(some_task())
+        task.add_done_callback(task_callback)
+    """
+    try:
+        # Re-raises an exception
+        task.result()
+    except asyncio.CancelledError:
+        pass
+    except Exception:
+        log.exception("Force-terminating test due to unhandled exception in task:")
+        # Terminates only current testcase, not the whole test run. Allows pytest fixture to teardown.
+        sys.exit(1)
