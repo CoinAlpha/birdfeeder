@@ -2,6 +2,7 @@ import asyncio
 import functools
 import inspect
 import logging
+import sys
 import time
 from typing import Any, List, Tuple, Union
 
@@ -144,3 +145,25 @@ async def wait_til_next_tick(seconds: float = 1.0) -> None:
     """Wait until the end of quantized time interval."""
     delay = calc_delay_til_next_tick(seconds)
     await asyncio.sleep(delay)
+
+
+def task_callback(task: asyncio.Task) -> None:
+    """
+    Helper to terminate background asyncio task in test, on failure.
+
+    Usage:
+
+    .. code-block:: python
+
+        task = asyncio.create_task(some_task())
+        task.add_done_callback(task_callback)
+    """
+    try:
+        # Re-raises an exception
+        task.result()
+    except asyncio.CancelledError:
+        pass
+    except Exception:
+        log.exception("Force-terminating test due to unhandled exception in task:")
+        # Terminates only current testcase, not the whole test run. Allows pytest fixture to teardown.
+        sys.exit(1)
