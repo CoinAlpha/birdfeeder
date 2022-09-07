@@ -235,7 +235,6 @@ def redis_sentinel_config_template_path():
 
 @pytest.fixture(scope="class")
 def redis_cluster(session_id, unused_port, docker_manager, redis_sentinel_config_template_path):
-
     volume = f"/tmp/redis_config_{session_id}"
     Path(volume).mkdir(exist_ok=True)
 

@@ -21,7 +21,7 @@ class Formatter(Enum):
     def all(cls: Type[T]) -> List[str]:
         """Returns list with all defined formatter names."""
         # Looks like mypy can't correctly handle that for now
-        return list(map(lambda i: i.name, cls))  # type: ignore
+        return [i.name for i in cls]
 
 
 def configure_logging_formatter(formatter: Formatter = Formatter.JSON) -> None:

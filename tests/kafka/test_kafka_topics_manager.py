@@ -9,7 +9,6 @@ def topics_manager(kafka):
 
 
 def test_create_delete_topic(topics_manager: KafkaTopicsManager) -> None:
-
     topics_manager.create_topic("test", replication=1)
     assert topics_manager.check_topic("test")
 
