@@ -12,13 +12,13 @@ def test_create_with_value():
 
 def test_summation():
     values = [2, 4, 5]
-    sum_ = summation(map(lambda i: TimedMetricItem.create_with_value(i), values))
+    sum_ = summation(TimedMetricItem.create_with_value(i) for i in values)
     assert sum_ == sum(values)
 
 
 def test_average():
     values = [3, 4, 5]
-    avg = average(map(lambda i: TimedMetricItem.create_with_value(i), values))
+    avg = average(TimedMetricItem.create_with_value(i) for i in values)
     assert avg == 4
 
 

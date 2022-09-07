@@ -1,6 +1,5 @@
 import logging
 import threading
-from abc import ABC
 from typing import Any, Dict, Optional
 
 import boto3
@@ -10,7 +9,7 @@ from botocore.paginate import PageIterator
 log = logging.getLogger(__name__)
 
 
-class AwsBase(ABC):
+class AwsBase:
     _service: str
 
     def __init__(  # type: ignore
