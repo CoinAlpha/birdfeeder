@@ -82,7 +82,7 @@ async def start_management_console(
     def factory_method(*args, **kwargs):
         from aioconsole.console import AsynchronousConsole
 
-        return AsynchronousConsole(locals=local_vars, *args, **kwargs)
+        return AsynchronousConsole(*args, locals=local_vars, **kwargs)
 
     retval = await aioconsole.start_interactive_server(host=host, port=port, banner=banner, factory=factory_method)
     logger.info(f"Started debug console at {host}:{port}.")
