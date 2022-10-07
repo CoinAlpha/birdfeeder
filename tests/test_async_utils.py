@@ -1,7 +1,7 @@
 import asyncio
 import random
 import sys
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 from async_timeout import timeout
@@ -64,6 +64,14 @@ async def test_safe_ensure_future_named_1():
     safe_wrapped = async_utils.safe_ensure_future(ok_coroutine())
     await safe_wrapped
     assert 'safe_ok_coroutine' in repr(safe_wrapped)
+
+
+@pytest.mark.asyncio()
+async def test_safe_ensure_future_loop_wide_handler(event_loop):
+    handler = MagicMock()
+    event_loop.set_exception_handler(handler)
+    await async_utils.safe_ensure_future(bad_coroutine(), call_loop_exception_handler=True)
+    handler.assert_called_once()
 
 
 @pytest.mark.asyncio()

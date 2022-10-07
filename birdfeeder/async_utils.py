@@ -49,11 +49,15 @@ def get_callers(stack_size: int = 5) -> List[Tuple[int, str, Any]]:
     return sorted(callers)
 
 
-def safe_ensure_future(coro, old_naming_style=False, *args, **kwargs):
+def safe_ensure_future(coro, old_naming_style=False, call_loop_exception_handler=False, *args, **kwargs):
     """
     Run a coroutine in a wrapper, catching and logging unexpected exception.
 
     :param old_naming_style: don't modify wrapped coroutine name if True
+    :param call_loop_exception_handler: immediately call loop-wide exception handler on exception. This is needed to
+        work-around python behavior: normally loop-wide exception handler is called when the finished task is
+        garbage-collected. But if there is a reference, it prevents such call. See https://bugs.python.org/issue28274
+        for details
     :envvar: INSPECT_CALLERS: if true, show callers on failure
     """
     caller_names = ""
@@ -65,11 +69,14 @@ def safe_ensure_future(coro, old_naming_style=False, *args, **kwargs):
             return await c
         except asyncio.CancelledError:
             raise
-        except Exception as e:
+        except Exception as exc:
             logging.getLogger().error(
-                f"Unhandled error in background task: {str(e)} {caller_names}",
+                f"Unhandled error in background task: {str(exc)} {caller_names}",
                 exc_info=True,
             )
+            if call_loop_exception_handler:
+                loop = asyncio.get_event_loop()
+                loop.call_exception_handler({"message": "exception in background task", "exception": exc})
 
     wrapped_coro = safe_wrapper(coro)
 
