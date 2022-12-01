@@ -13,6 +13,7 @@ private_ip = "172.20.129.153"
 public_ip = "1.1.1.1"
 
 
+# TODO (vladimir): refactor existing manual fixtures to use vcrpy
 def describe_auto_scaling_groups_valid_response():
     return load_json_from_file(os.path.join(os.path.dirname(__file__), "fixtures/describe_auto_scaling_group.json"))
 
@@ -53,3 +54,11 @@ def test_get_asg_instances_ip(asg):
         ips = asg.get_asg_instances_ip("ascendex-proxies")
         log.debug(ips)
         assert ips == [private_ip] * 2  # multiplying to number of instances in dumped response
+
+
+def test_region_env_var_override(monkeypatch):
+    """Test that we can override default region using env var."""
+    region = "ap-northeast-1"
+    monkeypatch.setenv("AWS_DEFAULT_REGION", region)
+    asg = AwsAutoscaling()
+    assert asg.client._client_config.region_name == region

@@ -1,4 +1,5 @@
 import logging
+import os
 import threading
 from typing import Any, Dict, Optional
 
@@ -16,16 +17,22 @@ class AwsBase:
         self,
         access_key: Optional[str] = None,
         secret_key: Optional[str] = None,
-        region_name: str = "us-west-2",
+        region_name: Optional[str] = None,
         **kwargs
     ) -> None:  # type: ignore
 
         if (access_key is not None) ^ (secret_key is not None):
             raise ValueError("You must specify both `access_key` and `secret_key` or neither of them")
 
+        self._region_name = None
+        if region_name is None and os.getenv("AWS_DEFAULT_REGION") is None:
+            # Backward compatibility
+            self._region_name = "us-west-2"
+        else:
+            self._region_name = region_name
+
         self._access_key = access_key
         self._secret_key = secret_key
-        self._region_name = region_name
         self._kwargs = kwargs
         self._client: Optional[BaseClient] = None
         self._client_creation_lock = threading.Lock()
