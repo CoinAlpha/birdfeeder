@@ -33,7 +33,6 @@ class AwsBase:
 
         self._access_key = access_key
         self._secret_key = secret_key
-        self._region_name = region_name
         self._kwargs = kwargs
         self._client: Optional[BaseClient] = None
         self._client_creation_lock = threading.Lock()
