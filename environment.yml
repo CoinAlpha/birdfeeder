@@ -34,6 +34,7 @@ dependencies:
   - PyMySQL>=1.0.2,<2.0.0
   - mysqlclient>=2,<3
   - pip
+  - async-timeout>=5.0.1,<6.0.0
   - pip:
     - poetry2conda>=0.3,<0.4
     - pre-commit>=2.2.0,<3.0.0
