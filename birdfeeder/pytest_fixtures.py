@@ -191,7 +191,7 @@ def mysql8(session_id, unused_port, docker_manager):
         image="mysql:8.4",
         # Setting some command-line options to speed up test execution and to bring AWS settings
         command=options,
-        name=f"mysql-{session_id}",
+        name=f"mysql-8-{session_id}",
         ports={"3306": port},
         environment={"MYSQL_ROOT_PASSWORD": password},
         detach=True,
