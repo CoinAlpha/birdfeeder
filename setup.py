@@ -7,7 +7,7 @@
 try:
     from setuptools import setup
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup  # type: ignore[misc]
 
 import os.path
 
