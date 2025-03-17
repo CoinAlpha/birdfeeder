@@ -1,5 +1,4 @@
 import logging
-import os
 import shutil
 import socket
 import time
@@ -140,7 +139,6 @@ def mysql(session_id, unused_port, docker_manager):
     """Creates MySQL docker container."""
     port = unused_port()
     password = "pass"
-    volume = f"/tmp/mysql-data/{session_id}" if os.getenv("CI") else f"birdfeeder-mysql-test-{session_id}"
     options = " ".join(
         [
             "--innodb-flush-log-at-trx-commit=0",
@@ -158,11 +156,45 @@ def mysql(session_id, unused_port, docker_manager):
         name=f"mysql-{session_id}",
         ports={"3306": port},
         environment={"MYSQL_ROOT_PASSWORD": password},
-        # Speed up MySQL startup time, approx 30 seconds
-        volumes=[f"{volume}:/var/lib/mysql:rw"],
         detach=True,
         # needed for compatibility with Apple Silicon computers
         # becausre there's no ARM version of MySQL 5.7 image
+        platform="linux/x86_64",
+    )
+    container.service_port = port
+    container.user = "root"
+    container.host = "127.0.0.1"
+    container.password = password
+
+    try:
+        yield container
+    finally:
+        # Cleanup everything after test run
+        container.remove(v=True, force=True)
+
+
+@pytest.fixture(scope="session")
+def mysql8(session_id, unused_port, docker_manager):
+    """Creates MySQL docker container."""
+    port = unused_port()
+    password = "pass"
+    options = " ".join(
+        [
+            "--innodb-flush-log-at-trx-commit=0",
+            "--innodb-flush-method=O_DIRECT_NO_FSYNC",
+            "--innodb-file-per-table=OFF",
+            "--sql-mode=''",
+        ]
+    )
+
+    container = docker_manager.containers.run(
+        image="mysql:8.4",
+        # Setting some command-line options to speed up test execution and to bring AWS settings
+        command=options,
+        name=f"mysql-8-{session_id}",
+        ports={"3306": port},
+        environment={"MYSQL_ROOT_PASSWORD": password},
+        detach=True,
         platform="linux/x86_64",
     )
     container.service_port = port

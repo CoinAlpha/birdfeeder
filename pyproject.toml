@@ -1,6 +1,6 @@
 [build-system]
-requires = ["poetry>=1.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 # Default section.
 # Convert dephell metainfo and dependencies from poetry to setup.py:
@@ -28,7 +28,7 @@ versioning = "semver"
 
 [tool.poetry]
 name = "birdfeeder-coinalpha"
-version = "1.3.0"
+version = "1.4.0"
 description = "Helper library for CoinAlpha projects"
 license = "MIT"
 authors = ["Vladimir Kamarzin <vvk@vvk.pp.ru>"]
@@ -63,8 +63,9 @@ kafka-python = "^2"
 pydantic = "^1.9.0"
 boto3 = "^1"
 aioconsole = ">=0.1.16"
+async-timeout = "^5.0.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 # See https://python-poetry.org/docs/dependency-specification/
 poetry2conda = "^0.3"
 pre-commit = "^2.2.0"

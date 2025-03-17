@@ -21,6 +21,11 @@ def test_get_new_db(get_new_db, mysql, session_id):
         assert db_url is not None
 
 
+def test_get_new_db_8(get_new_db, mysql8, session_id):
+    with get_new_db(mysql8, session_id) as db_url:
+        assert db_url is not None
+
+
 def test_empty_db(empty_db):
     assert empty_db is not None
 

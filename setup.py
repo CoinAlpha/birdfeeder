@@ -7,7 +7,7 @@
 try:
     from setuptools import setup
 except ImportError:
-    from distutils.core import setup
+    from distutils.core import setup  # type: ignore[misc]
 
 import os.path
 
@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='birdfeeder-coinalpha',
-    version='1.3.0',
+    version='1.4.0',
     description='Helper library for CoinAlpha projects',
     python_requires='==3.*,>=3.8.0',
     project_urls={"repository": "https://github.com/coinalpha/birdfeeder"},
@@ -42,6 +42,7 @@ setup(
         'aioconsole>=0.1.16',
         'aiohttp==3.*,>=3.2.0',
         'aiorun==2020.*,>=2020.0.0',
+        'async-timeout==5.*,>=5.0.1',
         'boto3==1.*,>=1.0.0',
         'cachetools==4.*,>=4.0.0',
         'environs==9.*,>=9.0.0',
@@ -52,21 +53,4 @@ setup(
         'ruamel.yaml==0.*,>=0.16.0',
         'typer>=0.3',
     ],
-    extras_require={
-        "dev": [
-            "docker==4.*,>=4.0.0",
-            "mysqlclient==2.*,>=2.0.0",
-            "poetry2conda==0.*,>=0.3.0",
-            "pre-commit==2.*,>=2.2.0",
-            "pymysql==1.*,>=1.0.2",
-            "pytest==6.*,>=6.0.0",
-            "pytest-aiohttp",
-            "pytest-asyncio==0.*,>=0.14.0",
-            "pytest-cov==2.*,>=2.7.0",
-            "pytest-mock==3.*,>=3.1.0",
-            "redis==3.*,>=3.5.0",
-            "sqlalchemy==1.*,>=1.4.0",
-            "sqlalchemy-utils==0.*,>=0.37.0",
-        ]
-    },
 )
