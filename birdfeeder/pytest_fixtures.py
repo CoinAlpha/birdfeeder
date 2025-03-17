@@ -1,5 +1,4 @@
 import logging
-import os
 import shutil
 import socket
 import time
@@ -140,7 +139,6 @@ def mysql(session_id, unused_port, docker_manager):
     """Creates MySQL docker container."""
     port = unused_port()
     password = "pass"
-    volume = f"/tmp/mysql-data/{session_id}" if os.getenv("CI") else f"birdfeeder-mysql-test-{session_id}"
     options = " ".join(
         [
             "--innodb-flush-log-at-trx-commit=0",
@@ -158,8 +156,6 @@ def mysql(session_id, unused_port, docker_manager):
         name=f"mysql-{session_id}",
         ports={"3306": port},
         environment={"MYSQL_ROOT_PASSWORD": password},
-        # Speed up MySQL startup time, approx 30 seconds
-        volumes=[f"{volume}:/var/lib/mysql:rw"],
         detach=True,
         # needed for compatibility with Apple Silicon computers
         # becausre there's no ARM version of MySQL 5.7 image
