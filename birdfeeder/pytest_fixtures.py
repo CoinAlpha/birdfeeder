@@ -177,6 +177,42 @@ def mysql(session_id, unused_port, docker_manager):
         container.remove(v=True, force=True)
 
 
+@pytest.fixture(scope="session")
+def mysql8(session_id, unused_port, docker_manager):
+    """Creates MySQL docker container."""
+    port = unused_port()
+    password = "pass"
+    options = " ".join(
+        [
+            "--innodb-flush-log-at-trx-commit=0",
+            "--innodb-flush-method=O_DIRECT_NO_FSYNC",
+            "--innodb-file-per-table=OFF",
+            "--sql-mode=''",
+        ]
+    )
+
+    container = docker_manager.containers.run(
+        image="mysql:8.4",
+        # Setting some command-line options to speed up test execution and to bring AWS settings
+        command=options,
+        name=f"mysql-{session_id}",
+        ports={"3306": port},
+        environment={"MYSQL_ROOT_PASSWORD": password},
+        detach=True,
+        platform="linux/x86_64",
+    )
+    container.service_port = port
+    container.user = "root"
+    container.host = "127.0.0.1"
+    container.password = password
+
+    try:
+        yield container
+    finally:
+        # Cleanup everything after test run
+        container.remove(v=True, force=True)
+
+
 def wait_db(url: Union[str, URL], retries: int = 60) -> None:
     """Waits for server readiness."""
     while retries:
